@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ContactsApp</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Contacts</string>
     <string name="action_settings">Settings</string>
 
     <!-- 1st Screen -->
-    <string name="enter_button">Enter</string>
+    <string name="enter_button">if you don\'t want to wait</string>
 
     <!-- 2nd Screen -->
     <string name="title_activity_contact_list">Contacts List</string>
-
 
     <!-- 3rd Screen -->
 
 
     <!-- 4th Screen -->
 
+    <string name="title_activity_contact_details">ContactDetails</string>
+    <string name="selected_user">The selected user</string>
 
 </resources>
