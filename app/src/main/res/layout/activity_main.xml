@@ -11,17 +11,6 @@
     android:background="@drawable/splash_contacts2"
     tools:context=".MainActivity">
 
-    <!--<TextView-->
-        <!--android:id="@+id/name_of_application"-->
-        <!--android:text="Contacts"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:textSize="30dp"-->
-        <!--android:typeface="sans"-->
-        <!--/>-->
-
     <TextView
         android:id="@+id/version_of_application"
         android:text="1.2"
