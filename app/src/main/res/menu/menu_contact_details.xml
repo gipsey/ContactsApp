@@ -5,10 +5,9 @@
 
     <item
         android:id="@+id/edit_contact"
-        android:title="@string/edit_contacts"
         android:icon="@drawable/ic_action_edit"
-        app:showAsAction="always"
-        />
+        android:title="@string/edit_contacts"
+        app:showAsAction="always" />
 
 
 </menu>
