@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- 1st Screen | Splash Screen-->
-    <string name="enter_button">if you don\'t want to wait</string>
+    <string name="enter_button">tap if you don\'t want to wait</string>
 
     <!-- 2nd Screen | Contacts List-->
     <string name="title_activity_contact_list">Contacts list</string>
@@ -37,6 +37,9 @@
 
     <!-- 5th Screen | Add new contact -->
     <string name="title_activity_contact_add">Add a new contact</string>
+    <string name="httpPrefixForWebsiteAddress">http://</string>
+    <string name="httpsPrefixForWebsiteAddress">https://</string>
+    <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
 
 
     <!--Test-->
