@@ -74,7 +74,6 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         callButton.setOnClickListener(this);
 
         LinearLayout phoneNumberLinearLayout = new LinearLayout(this);
-//        LinearLayout.LayoutParams phoneNumberLinearLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         phoneNumberLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
         phoneNumberLinearLayout.addView(phoneNumberValueTextView);
@@ -125,6 +124,18 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         TextView addressValueTextView = new TextView(this);
         addressValueTextView.setText(user.getAddress());
         addressValueTextView.setTextSize(30);
+        LinearLayout.LayoutParams addressValueLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        addressValueTextView.setLayoutParams(addressValueLayoutParams);
+
+        Button lookButton = new Button(this);
+        lookButton.setId(R.id.look_button);
+        lookButton.setText(R.string.look_button);
+        lookButton.setOnClickListener(this);
+
+        LinearLayout addressLinearLayout = new LinearLayout(this);
+        addressLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        addressLinearLayout.addView(addressValueTextView);
+        addressLinearLayout.addView(lookButton);
 
 
         // WEBSITE
@@ -160,7 +171,7 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         mainLinearLayout.addView(dobTextView);
         mainLinearLayout.addView(dobValueTextView);
         mainLinearLayout.addView(addressTextView);
-        mainLinearLayout.addView(addressValueTextView);
+        mainLinearLayout.addView(addressLinearLayout);
         mainLinearLayout.addView(websiteTextView);
         mainLinearLayout.addView(websiteLinearLayout);
     }
@@ -176,6 +187,10 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("plain/text");
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{user.getEmail()});
+            startActivity(intent);
+        } else if (v.getId() == R.id.look_button) {
+            Intent intent = new Intent(this, MapAndWeatherActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, user.getAddress());
             startActivity(intent);
         } else if (v.getId() == R.id.visit_button) {
 

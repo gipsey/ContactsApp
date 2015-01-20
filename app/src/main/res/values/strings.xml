@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--General-->
+    <!-- General -->
     <string name="app_name">Contacts</string>
+    <string name="name_of_application_string1">Welcome</string>
+    <string name="name_of_application_string2">to</string>
+    <string name="name_of_application_string3">contacts</string>
     <string name="action_settings">Settings</string>
 
-    <!-- 1st Screen | Splash Screen-->
+    <!-- 1st Screen | Splash Screen -->
     <string name="enter_button">tap if you don\'t want to wait</string>
 
-    <!-- 2nd Screen | Contacts List-->
+    <!-- 2nd Screen | Contacts List -->
     <string name="title_activity_contact_list">Contacts list</string>
     <string name="search_hint">Search by name or phone number</string>
     <string name="add_person_to_contacts">Add person to contacts</string>
     <string name="search_for_contacts">Search for contacts</string>
 
-    <!-- 3rd Screen | Contact details-->
+    <!-- 3rd Screen | Contact details -->
     <string name="title_activity_contact_details">Contact details</string>
     <string name="edit_contacts">Edit contact</string>
     <string name="name_text_view">Name</string>
@@ -25,6 +28,7 @@
     <string name="website_text_view">Website</string>
     <string name="call_button">Call</string>
     <string name="send_button">Send</string>
+    <string name="look_button">Look</string>
     <string name="visit_button">Visit</string>
 
     <!-- 4th Screen | Edit contact -->
@@ -40,9 +44,12 @@
     <string name="httpPrefixForWebsiteAddress">http://</string>
     <string name="httpsPrefixForWebsiteAddress">https://</string>
     <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
-    <string name="name_of_appclication_string">asda</string>
 
 
-    <!--Test-->
+    <!-- 6th Screen | Map and weather -->
+    <string name="title_activity_map_and_weather">Look up for address</string>
+
+    <!-- Test -->
+
 
 </resources>

@@ -9,6 +9,13 @@
         <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-3f77952d75034aa6f717bfa900be3bb9179ae39f.jar" />
     </item>
     <item
+        jar="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/classes-a557bb673a2d2536d77ddffd0f4420fc0f74cec3.jar" />
+    </item>
+    <item
         jar="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"

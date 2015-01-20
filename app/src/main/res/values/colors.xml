@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="deepskyblue">#00BFFF</color>
+    <color name="dodger_blue">#1E90FF</color>
+    <color name="special_white">#E5E4E2</color>
+    <color name="darker_special_white">#D1D0CE</color>
 </resources>
