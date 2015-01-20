@@ -1,4 +1,4 @@
-package com.training.davidd.contactsapp;
+package com.training.contactsapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
