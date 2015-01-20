@@ -40,6 +40,7 @@
     <string name="httpPrefixForWebsiteAddress">http://</string>
     <string name="httpsPrefixForWebsiteAddress">https://</string>
     <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
+    <string name="name_of_appclication_string">asda</string>
 
 
     <!--Test-->
