@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.training.davidd.contactsapp.ContactAddActivity">
+
+    <item
+        android:id="@+id/save_new_contact"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/save_contact"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/cancel_adding_new_contact"
+        android:icon="@drawable/ic_action_cancel"
+        android:title="@string/cancel_contact"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="call_button" type="id" />
+    <item name="send_button" type="id" />
+    <item name="visit_button" type="id" />
+
+</resources>
