@@ -189,9 +189,14 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{user.getEmail()});
             startActivity(intent);
         } else if (v.getId() == R.id.look_button) {
-            Intent intent = new Intent(this, MapAndWeatherActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, user.getAddress());
-            startActivity(intent);
+            if (user.getAddress() == null || user.getAddress().isEmpty()) {
+                showToast(getResources().getString(R.string.address_is_empty));
+                return;
+            } else {
+                Intent intent = new Intent(this, MapAndWeatherActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, user.getAddress());
+                startActivity(intent);
+            }
         } else if (v.getId() == R.id.visit_button) {
 
             String websiteValue = user.getWebsite();
@@ -231,4 +236,7 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         return super.onOptionsItemSelected(item);
     }
 
+    private void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
 }

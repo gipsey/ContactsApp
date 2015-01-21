@@ -1,68 +1,50 @@
 package com.training.contactsapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.training.contactsapp.view.MyMapFragment;
+import com.training.contactsapp.view.MyWeatherFragment;
 
 public class MapAndWeatherActivity extends ActionBarActivity {
+    public final String MAP_FRAGMENT_TAG = "MAP_FRAGMENT";
+    public final String WEATHER_FRAGMENT_TAG = "WEATHER_FRAGMENT";
 
-    private final LatLng periceiChurch = new LatLng(47.231595, 22.863289);
-    private final LatLng fortechMeteor = new LatLng(46.754277, 23.593797);
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
-    private MapFragment googleMapFragment;
-    private GoogleMap googleMap;
+    private MyMapFragment myMapFragment;
+    private MyWeatherFragment myWeatherFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_and_weather);
 
-        String addressToBedisplayed = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        String addressToBeDisplayed = getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
-        googleMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.google_map);
-        googleMap = googleMapFragment.getMap();
+        myMapFragment = new MyMapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(MyMapFragment.ADDRESS_TO_BE_DISPLAYED_TAG, addressToBeDisplayed);
+        myMapFragment.setArguments(bundle);
+        myWeatherFragment = new MyWeatherFragment();
 
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(periceiChurch);
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(periceiChurch, 15);
-                googleMap.animateCamera(cameraUpdate);
-                googleMap.addMarker(new MarkerOptions().position(periceiChurch).title("Pericei"));
-            }
-        }, 2000);
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(fortechMeteor);
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(fortechMeteor, 15);
-                googleMap.animateCamera(cameraUpdate);
-                googleMap.addMarker(new MarkerOptions().position(fortechMeteor).title("Fortech"));
-            }
-        }, 6000);
-
+        fragmentTransaction.add(R.id.map_frame_layout, myMapFragment, MAP_FRAGMENT_TAG);
+        fragmentTransaction.add(R.id.weather_frame_layout, myWeatherFragment, WEATHER_FRAGMENT_TAG);
+        fragmentTransaction.commit();
     }
-
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,4 +58,9 @@ public class MapAndWeatherActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void showToast(String text) {
+        Toast.makeText(this, getLocalClassName() + " " + text, Toast.LENGTH_LONG).show();
+    }
+
 }

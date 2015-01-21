@@ -45,11 +45,14 @@
     <string name="httpsPrefixForWebsiteAddress">https://</string>
     <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
 
-
     <!-- 6th Screen | Map and weather -->
     <string name="title_activity_map_and_weather">Look up for address</string>
 
     <!-- Test -->
 
+    <string name="hello_map">MAP</string>
+    <string name="hello_weather">WEATHER</string>
+    <string name="cannot_find_address">Cannot find the address</string>
+    <string name="address_is_empty">Sorry! Address is empty.</string>
 
 </resources>
