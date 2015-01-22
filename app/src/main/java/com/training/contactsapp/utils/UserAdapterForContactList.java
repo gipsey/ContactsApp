@@ -15,23 +15,23 @@ import java.util.ArrayList;
 /**
  * Created by davidd on 1/14/15.
  */
-public class UserAdapterToContactList extends ArrayAdapter<User> {
+public class UserAdapterForContactList extends ArrayAdapter<User> {
 
-    public UserAdapterToContactList(Context context, ArrayList<User> users) {
+    public UserAdapterForContactList(Context context, ArrayList<User> users) {
         super(context, 0, users);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        User user = getItem(position);
-
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent,
+                    false);
         }
 
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name_text_view);
         TextView phoneNumberTextView = (TextView) convertView.findViewById(R.id.phone_number_text_view);
 
+        User user = getItem(position);
         nameTextView.setText(user.getName());
         phoneNumberTextView.setText(user.getPhoneNumber());
 

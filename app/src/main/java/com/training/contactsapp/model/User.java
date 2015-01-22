@@ -6,95 +6,95 @@ import java.io.Serializable;
  * Created by davidd on 1/14/15.
  */
 public class User implements Serializable {
-    private static final long serialVersionUID = -7060210544600464481L;
-
-    private int uid;
-    private String name;
-    private String phone_number;
-    private String email;
-    private String dob;
-    private String address;
-    private String website;
+    private static final long serialVersionUid = -7060210544600464481L;
+    private int mUid;
+    private String mName;
+    private String mPhoneNumber;
+    private String mEmail;
+    private String mDob;
+    private String mAddress;
+    private String mWebsite;
 
     public User() {
     }
 
-    public User(int uid, String name, String phone_number, String email, String dob, String address, String website) {
-        this.uid = uid;
-        this.name = name;
-        this.phone_number = phone_number;
-        this.email = email;
-        this.dob = dob;
-        this.address = address;
-        this.website = website;
+    public User(int uid, String name, String phoneNumber, String email, String dob, String address,
+                String website) {
+        this.mUid = uid;
+        this.mName = name;
+        this.mPhoneNumber = phoneNumber;
+        this.mEmail = email;
+        this.mDob = dob;
+        this.mAddress = address;
+        this.mWebsite = website;
     }
 
     public int getUid() {
-        return uid;
+        return mUid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setUid(int mUid) {
+        this.mUid = mUid;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public String getPhoneNumber() {
-        return phone_number;
+        return mPhoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.mPhoneNumber = phoneNumber;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail = email;
     }
 
     public String getDob() {
-        return dob;
+        return mDob;
     }
 
     public void setDob(String dob) {
-        this.dob = dob;
+        this.mDob = dob;
     }
 
     public String getAddress() {
-        return address;
+        return mAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String mAddress) {
+        this.mAddress = mAddress;
     }
 
     public String getWebsite() {
-        return website;
+        return mWebsite;
     }
 
     public void setWebsite(String website) {
-        this.website = website;
+        this.mWebsite = website;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "uid=" + uid +
-                ", name='" + name + '\'' +
-                ", phone_number='" + phone_number + '\'' +
-                ", email='" + email + '\'' +
-                ", dob=" + dob +
-                ", address='" + address + '\'' +
-                ", website='" + website + '\'' +
+                "uid=" + mUid +
+                ", name='" + mName + '\'' +
+                ", phoneNumber='" + mPhoneNumber + '\'' +
+                ", email='" + mEmail + '\'' +
+                ", dob='" + mDob + '\'' +
+                ", address='" + mAddress + '\'' +
+                ", website='" + mWebsite + '\'' +
                 '}';
     }
 }

@@ -19,32 +19,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.db.UserDBImplementation;
+import com.training.contactsapp.database.UserDBImplementation;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.utils.StyleProperties;
 import com.training.contactsapp.view.fragments.DatePickerFragment;
 
-
 public class ContactEditActivity extends ActionBarActivity implements DatePickerFragment.ProcessDate {
+    protected final static String REMOVE_STATUS = "REMOVE_STATUS";
+    protected final static String SAVE_STATUS = "SAVE_STATUS";
 
-    // GENERAL
-    protected final static String REMOVE_STATUS = "remove_status";
-    protected final static String SAVE_STATUS = "save_status";
-    // DB
-    UserDBImplementation userDBImplementation;
-    // UI
-    private RelativeLayout mainRelativeLayout;
-    private LinearLayout mainLinearLayout;
-    private EditText nameValueEditText;
-    private Drawable nameValueEditTextDrawable;
-    private EditText phoneNumberValueEditText;
-    private Drawable phoneNumberValueEditTextDrawable;
-    private EditText emailValueEditText;
-    private DatePickerFragment datePickerFragment;
-    private EditText dobValueEditText;
-    private EditText addressValueEditText;
-    private EditText websiteValueEditText;
-    private User actualUser;
+    private UserDBImplementation mUserDBImplementation;
+
+    private RelativeLayout mMainRelativeLayout;
+    private LinearLayout mMainLinearLayout;
+    private EditText mNameValueEditText;
+    private Drawable mNameValueEditTextDrawable;
+    private EditText mPhoneNumberValueEditText;
+    private Drawable mPhoneNumberValueEditTextDrawable;
+    private EditText mEmailValueEditText;
+    private DatePickerFragment mDatePickerFragment;
+    private EditText mDobValueEditText;
+    private EditText mAddressValueEditText;
+    private EditText mWebsiteValueEditText;
+    private User mActualUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,90 +48,82 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         setContentView(R.layout.activity_contact_edit);
 
         Intent intent = getIntent();
-        actualUser = (User) intent.getSerializableExtra("user");
+        mActualUser = (User) intent.getSerializableExtra(ContactDetailsActivity.USER_TAG);
 
-        mainLinearLayout = new LinearLayout(this);
-        mainLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        mainLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mainLinearLayout.setPadding(8, 8, 8, 8);
+        mMainLinearLayout = new LinearLayout(this);
+        mMainLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        mMainLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mMainLinearLayout.setPadding(8, 8, 8, 8);
 
         createUI();
 
-        mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
-        mainRelativeLayout.addView(mainLinearLayout);
+        mMainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
+        mMainRelativeLayout.addView(mMainLinearLayout);
 
-        userDBImplementation = UserDBImplementation.getInstance(this);
+        mUserDBImplementation = UserDBImplementation.getInstance();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_contact_edit, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.save_contact:
-                String name = nameValueEditText.getText().toString();
-                String phoneNumber = phoneNumberValueEditText.getText().toString();
+                String name = mNameValueEditText.getText().toString();
+                String phoneNumber = mPhoneNumberValueEditText.getText().toString();
 
                 if (name.isEmpty() && phoneNumber.isEmpty()) {
-                    nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
-                    phoneNumberValueEditText.setBackgroundColor(StyleProperties.errorColor);
                     Toast.makeText(this, R.string.name_and_phone_number_missing, Toast.LENGTH_LONG).show();
+                    mNameValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
+                    mPhoneNumberValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                 } else if (name.isEmpty()) {
                     Toast.makeText(this, R.string.name_missing, Toast.LENGTH_LONG).show();
-                    nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
+                    mNameValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        phoneNumberValueEditText.setBackgroundDrawable(phoneNumberValueEditTextDrawable);
+                        mPhoneNumberValueEditText.setBackgroundDrawable(mPhoneNumberValueEditTextDrawable);
                     } else {
-                        phoneNumberValueEditText.setBackground(phoneNumberValueEditTextDrawable);
+                        mPhoneNumberValueEditText.setBackground(mPhoneNumberValueEditTextDrawable);
                     }
                 } else if (phoneNumber.isEmpty()) {
                     Toast.makeText(this, R.string.phone_number_missing, Toast.LENGTH_LONG).show();
-                    phoneNumberValueEditText.setBackgroundColor(StyleProperties.errorColor);
+                    mPhoneNumberValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        nameValueEditText.setBackgroundDrawable(nameValueEditTextDrawable);
+                        mNameValueEditText.setBackgroundDrawable(mNameValueEditTextDrawable);
                     } else {
-                        nameValueEditText.setBackground(nameValueEditTextDrawable);
+                        mNameValueEditText.setBackground(mNameValueEditTextDrawable);
                     }
                 } else {
-                    User newUser = new User(actualUser.getUid(), name, phoneNumber, emailValueEditText.getText().toString(),
-                            dobValueEditText.getText().toString(), addressValueEditText.getText().toString(), websiteValueEditText.getText().toString());
-                    userDBImplementation.updateUser(newUser);
+                    User newUser = new User(mActualUser.getUid(), name, phoneNumber, mEmailValueEditText.getText().toString(),
+                            mDobValueEditText.getText().toString(), mAddressValueEditText.getText().toString(), mWebsiteValueEditText.getText().toString());
+                    mUserDBImplementation.updateUser(newUser);
                     Intent saveIntent = new Intent(this, ContactDetailsActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", newUser);
+                    bundle.putSerializable(ContactDetailsActivity.USER_TAG, newUser);
                     saveIntent.putExtras(bundle);
-                    saveIntent.putExtra(SAVE_STATUS, "Contact " + newUser.getName() + "(" + newUser.getPhoneNumber() + ") was updated");
+                    saveIntent.putExtra(SAVE_STATUS, String.format(getResources().getString(R.string.contact_updated), newUser.getName(), newUser.getPhoneNumber()));
                     startActivity(saveIntent);
                 }
-                return true;
             case R.id.cancel_editing_contact:
                 Intent cancelIntent = new Intent(this, ContactDetailsActivity.class);
                 Bundle cancelBundle = new Bundle();
-                cancelBundle.putSerializable("user", actualUser);
+                cancelBundle.putSerializable(ContactDetailsActivity.USER_TAG, mActualUser);
                 cancelIntent.putExtras(cancelBundle);
                 startActivity(cancelIntent);
-                return true;
             case R.id.delete_contact:
-                userDBImplementation.deleteUserByUID(actualUser.getUid());
-
                 AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(this);
-                deleteAlertDialog.setTitle("Delete contact");
+                deleteAlertDialog.setTitle(getResources().getString(R.string.delete_contact_confirmation));
                 deleteAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                deleteAlertDialog.setMessage("Sure you want to delete " + actualUser.getName() + "(" + actualUser.getPhoneNumber() + ")?");
+                deleteAlertDialog.setMessage(String.format(getResources().getString(R.string.delete_contact_confirmation_question), mActualUser.getName(), mActualUser.getPhoneNumber()));
                 deleteAlertDialog.setCancelable(true);
                 deleteAlertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        mUserDBImplementation.deleteUserByUID(mActualUser.getUid());
                         Intent deleteIntent = new Intent(ContactEditActivity.this, ContactListActivity.class);
-                        deleteIntent.putExtra(REMOVE_STATUS, "Contact " + actualUser.getName() + "(" + actualUser.getPhoneNumber() + ") was removed");
+                        deleteIntent.putExtra(REMOVE_STATUS, String.format(getResources().getString(R.string.contact_was_removed), mActualUser.getName(), mActualUser.getPhoneNumber()));
                         startActivity(deleteIntent);
                     }
                 });
@@ -145,8 +133,6 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
                     }
                 });
                 deleteAlertDialog.show();
-
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -155,15 +141,15 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
 
     private void createUI() {
         // NAME
-        TextView nameTextView = new TextView(this); // TODO: Name and phone number to have a red color if input is wrong or empty
+        TextView nameTextView = new TextView(this);
         nameTextView.setText(R.string.name_text_view);
         nameTextView.setTextSize(20);
         nameTextView.setPadding(0, 15, 0, 0);
 
-        nameValueEditText = new EditText(this);
-        nameValueEditText.setText(actualUser.getName());
-        nameValueEditText.setTextSize(30);
-        nameValueEditTextDrawable = nameValueEditText.getBackground();
+        mNameValueEditText = new EditText(this);
+        mNameValueEditText.setText(mActualUser.getName());
+        mNameValueEditText.setTextSize(30);
+        mNameValueEditTextDrawable = mNameValueEditText.getBackground();
 
         // PHONE NUMBER
         TextView phoneNumberTextView = new TextView(this);
@@ -171,11 +157,11 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         phoneNumberTextView.setTextSize(20);
         phoneNumberTextView.setPadding(0, 15, 0, 0);
 
-        phoneNumberValueEditText = new EditText(this);
-        phoneNumberValueEditText.setText(actualUser.getPhoneNumber());
-        phoneNumberValueEditText.setTextSize(30);
-        phoneNumberValueEditText.setInputType(InputType.TYPE_CLASS_PHONE);
-        phoneNumberValueEditTextDrawable = phoneNumberValueEditText.getBackground();
+        mPhoneNumberValueEditText = new EditText(this);
+        mPhoneNumberValueEditText.setText(mActualUser.getPhoneNumber());
+        mPhoneNumberValueEditText.setTextSize(30);
+        mPhoneNumberValueEditText.setInputType(InputType.TYPE_CLASS_PHONE);
+        mPhoneNumberValueEditTextDrawable = mPhoneNumberValueEditText.getBackground();
 
         // EMAIL
         TextView emailTextView = new TextView(this);
@@ -183,9 +169,9 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         emailTextView.setTextSize(20);
         emailTextView.setPadding(0, 15, 0, 0);
 
-        emailValueEditText = new EditText(this);
-        emailValueEditText.setText(actualUser.getEmail());
-        emailValueEditText.setTextSize(30);
+        mEmailValueEditText = new EditText(this);
+        mEmailValueEditText.setText(mActualUser.getEmail());
+        mEmailValueEditText.setTextSize(30);
 
         // DOB
         TextView dobTextView = new TextView(this);
@@ -193,17 +179,17 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         dobTextView.setTextSize(20);
         dobTextView.setPadding(0, 15, 0, 0);
 
-        datePickerFragment = new DatePickerFragment();
+        mDatePickerFragment = new DatePickerFragment();
 
-        dobValueEditText = new EditText(this);
-        dobValueEditText.setText(actualUser.getDob());
-        dobValueEditText.setTextSize(30);
-        dobValueEditText.setFocusable(false);
-        dobValueEditText.setOnClickListener(new View.OnClickListener() {
+        mDobValueEditText = new EditText(this);
+        mDobValueEditText.setText(mActualUser.getDob());
+        mDobValueEditText.setTextSize(30);
+        mDobValueEditText.setFocusable(false);
+        mDobValueEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!datePickerFragment.isAdded()) {
-                    datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+                if (!mDatePickerFragment.isAdded()) {
+                    mDatePickerFragment.show(getSupportFragmentManager(), "DATE_PICKER");
                 }
             }
         });
@@ -214,9 +200,9 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         addressTextView.setTextSize(20);
         addressTextView.setPadding(0, 15, 0, 0);
 
-        addressValueEditText = new EditText(this);
-        addressValueEditText.setText(actualUser.getAddress());
-        addressValueEditText.setTextSize(30);
+        mAddressValueEditText = new EditText(this);
+        mAddressValueEditText.setText(mActualUser.getAddress());
+        mAddressValueEditText.setTextSize(30);
 
         // WEBSITE
         TextView websiteTextView = new TextView(this);
@@ -224,27 +210,27 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         websiteTextView.setTextSize(20);
         websiteTextView.setPadding(0, 15, 0, 0);
 
-        websiteValueEditText = new EditText(this);
-        websiteValueEditText.setText(actualUser.getWebsite());
-        websiteValueEditText.setTextSize(30);
+        mWebsiteValueEditText = new EditText(this);
+        mWebsiteValueEditText.setText(mActualUser.getWebsite());
+        mWebsiteValueEditText.setTextSize(30);
 
         // ADD VIEWS TO MAIN LINEAR LAYOUT
-        mainLinearLayout.addView(nameTextView);
-        mainLinearLayout.addView(nameValueEditText);
-        mainLinearLayout.addView(phoneNumberTextView);
-        mainLinearLayout.addView(phoneNumberValueEditText);
-        mainLinearLayout.addView(emailTextView);
-        mainLinearLayout.addView(emailValueEditText);
-        mainLinearLayout.addView(dobTextView);
-        mainLinearLayout.addView(dobValueEditText);
-        mainLinearLayout.addView(addressTextView);
-        mainLinearLayout.addView(addressValueEditText);
-        mainLinearLayout.addView(websiteTextView);
-        mainLinearLayout.addView(websiteValueEditText);
+        mMainLinearLayout.addView(nameTextView);
+        mMainLinearLayout.addView(mNameValueEditText);
+        mMainLinearLayout.addView(phoneNumberTextView);
+        mMainLinearLayout.addView(mPhoneNumberValueEditText);
+        mMainLinearLayout.addView(emailTextView);
+        mMainLinearLayout.addView(mEmailValueEditText);
+        mMainLinearLayout.addView(dobTextView);
+        mMainLinearLayout.addView(mDobValueEditText);
+        mMainLinearLayout.addView(addressTextView);
+        mMainLinearLayout.addView(mAddressValueEditText);
+        mMainLinearLayout.addView(websiteTextView);
+        mMainLinearLayout.addView(mWebsiteValueEditText);
     }
 
     @Override
     public void onDateSetInTheDialog(String date) {
-        dobValueEditText.setText(date);
+        mDobValueEditText.setText(date);
     }
 }

@@ -17,119 +17,98 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.db.UserDBImplementation;
+import com.training.contactsapp.database.UserDBImplementation;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.utils.StyleProperties;
 import com.training.contactsapp.view.fragments.DatePickerFragment;
 
-
 public class ContactAddActivity extends ActionBarActivity implements DatePickerFragment.ProcessDate {
-    // GENERAL
-    protected final static String ADD_STATUS = "add_status";
+    private UserDBImplementation mUserDBImplementation;
 
-    // DB
-    UserDBImplementation userDBImplementation;
-
-    // UI
-    private LinearLayout mainLinearLayout;
-    private EditText nameValueEditText;
-    private Drawable nameValueEditTextDrawable;
-    private EditText phoneNumberValueEditText;
-    private Drawable phoneNumberValueEditTextDrawable;
-    private EditText emailValueEditText;
-    private DatePickerFragment datePickerFragment;
-    private EditText dobValueEditText;
-    private EditText addressValueEditText;
-    private EditText websiteValueEditText;
+    private LinearLayout mMainLinearLayout;
+    private EditText mNameValueEditText;
+    private Drawable mNameValueEditTextDrawable;
+    private EditText mPhoneNumberValueEditText;
+    private Drawable mPhoneNumberValueEditTextDrawable;
+    private EditText mEmailValueEditText;
+    private DatePickerFragment mDatePickerFragment;
+    private EditText mDobValueEditText;
+    private EditText mAddressValueEditText;
+    private EditText mWebsiteValueEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_add);
 
-        mainLinearLayout = new LinearLayout(this);
-        mainLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        mainLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mainLinearLayout.setPadding(8, 8, 8, 8);
-
         createUI();
 
-        RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
-        mainRelativeLayout.addView(mainLinearLayout);
-
-
-        userDBImplementation = UserDBImplementation.getInstance(this);
+        mUserDBImplementation = UserDBImplementation.getInstance();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_contact_add, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.save_new_contact:
-                String name = nameValueEditText.getText().toString();
-                String phoneNumber = phoneNumberValueEditText.getText().toString();
+                String name = mNameValueEditText.getText().toString();
+                String phoneNumber = mPhoneNumberValueEditText.getText().toString();
 
                 if (name.isEmpty() && phoneNumber.isEmpty()) {
                     Toast.makeText(this, R.string.name_and_phone_number_missing, Toast.LENGTH_LONG).show();
-                    nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
-                    phoneNumberValueEditText.setBackgroundColor(StyleProperties.errorColor);
+                    mNameValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
+                    mPhoneNumberValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                 } else if (name.isEmpty()) {
                     Toast.makeText(this, R.string.name_missing, Toast.LENGTH_LONG).show();
-                    nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
+                    mNameValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        phoneNumberValueEditText.setBackgroundDrawable(phoneNumberValueEditTextDrawable);
+                        mPhoneNumberValueEditText.setBackgroundDrawable(mPhoneNumberValueEditTextDrawable);
                     } else {
-                        phoneNumberValueEditText.setBackground(phoneNumberValueEditTextDrawable);
+                        mPhoneNumberValueEditText.setBackground(mPhoneNumberValueEditTextDrawable);
                     }
                 } else if (phoneNumber.isEmpty()) {
                     Toast.makeText(this, R.string.phone_number_missing, Toast.LENGTH_LONG).show();
-                    phoneNumberValueEditText.setBackgroundColor(StyleProperties.errorColor);
+                    mPhoneNumberValueEditText.setBackgroundColor(getResources().getColor(R.color.error_color));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        nameValueEditText.setBackgroundDrawable(nameValueEditTextDrawable);
+                        mNameValueEditText.setBackgroundDrawable(mNameValueEditTextDrawable);
                     } else {
-                        nameValueEditText.setBackground(nameValueEditTextDrawable);
+                        mNameValueEditText.setBackground(mNameValueEditTextDrawable);
                     }
                 } else {
-                    User newUser = new User(-1, name, phoneNumber, emailValueEditText.getText().toString(),
-                            dobValueEditText.getText().toString(), addressValueEditText.getText().toString(), websiteValueEditText.getText().toString());
-                    userDBImplementation.insertUser(newUser);
+                    User newUser = new User(-1, name, phoneNumber, mEmailValueEditText.getText().toString(),
+                            mDobValueEditText.getText().toString(), mAddressValueEditText.getText().toString(), mWebsiteValueEditText.getText().toString());
+                    mUserDBImplementation.insertUser(newUser);
+
                     Intent saveIntent = new Intent(this, ContactListActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", newUser);
-                    saveIntent.putExtras(bundle);
-                    saveIntent.putExtra(ADD_STATUS, "Contact " + newUser.getName() + "(" + newUser.getPhoneNumber() + ") was added");
+                    saveIntent.putExtra(ContactListActivity.ADD_STATUS, String.format(getResources().getString(R.string.contact_added), newUser.getName(), newUser.getPhoneNumber()));
                     startActivity(saveIntent);
                 }
                 return true;
             case R.id.cancel_adding_new_contact:
                 startActivity(new Intent(this, ContactListActivity.class));
-                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private void createUI() {
+        mMainLinearLayout = new LinearLayout(this);
+        mMainLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        mMainLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mMainLinearLayout.setPadding(8, 8, 8, 8);
+
         // NAME
         TextView nameTextView = new TextView(this);
         nameTextView.setText(R.string.name_text_view);
         nameTextView.setTextSize(20);
         nameTextView.setPadding(0, 15, 0, 0);
 
-        nameValueEditText = new EditText(this);
-        nameValueEditText.setTextSize(30);
-        nameValueEditTextDrawable = nameValueEditText.getBackground();
+        mNameValueEditText = new EditText(this);
+        mNameValueEditText.setTextSize(30);
+        mNameValueEditTextDrawable = mNameValueEditText.getBackground();
 
         // PHONE NUMBER
         TextView phoneNumberTextView = new TextView(this);
@@ -137,10 +116,10 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         phoneNumberTextView.setTextSize(20);
         phoneNumberTextView.setPadding(0, 15, 0, 0);
 
-        phoneNumberValueEditText = new EditText(this);
-        phoneNumberValueEditText.setTextSize(30);
-        phoneNumberValueEditText.setInputType(InputType.TYPE_CLASS_PHONE);
-        phoneNumberValueEditTextDrawable = phoneNumberValueEditText.getBackground();
+        mPhoneNumberValueEditText = new EditText(this);
+        mPhoneNumberValueEditText.setTextSize(30);
+        mPhoneNumberValueEditText.setInputType(InputType.TYPE_CLASS_PHONE);
+        mPhoneNumberValueEditTextDrawable = mPhoneNumberValueEditText.getBackground();
 
         // EMAIL
         TextView emailTextView = new TextView(this);
@@ -148,8 +127,8 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         emailTextView.setTextSize(20);
         emailTextView.setPadding(0, 15, 0, 0);
 
-        emailValueEditText = new EditText(this);
-        emailValueEditText.setTextSize(30);
+        mEmailValueEditText = new EditText(this);
+        mEmailValueEditText.setTextSize(30);
 
         // DOB
         TextView dobTextView = new TextView(this);
@@ -157,17 +136,17 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         dobTextView.setTextSize(20);
         dobTextView.setPadding(0, 15, 0, 0);
 
-        datePickerFragment = new DatePickerFragment();
-        datePickerFragment.setCancelable(true);
+        mDatePickerFragment = new DatePickerFragment();
+        mDatePickerFragment.setCancelable(true);
 
-        dobValueEditText = new EditText(this);
-        dobValueEditText.setTextSize(30);
-        dobValueEditText.setFocusable(false);
-        dobValueEditText.setOnClickListener(new View.OnClickListener() {
+        mDobValueEditText = new EditText(this);
+        mDobValueEditText.setTextSize(30);
+        mDobValueEditText.setFocusable(false);
+        mDobValueEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!datePickerFragment.isAdded()) {
-                    datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+                if (!mDatePickerFragment.isAdded()) {
+                    mDatePickerFragment.show(getSupportFragmentManager(), "DATE_PICKER");
                 }
             }
         });
@@ -178,8 +157,8 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         addressTextView.setTextSize(20);
         addressTextView.setPadding(0, 15, 0, 0);
 
-        addressValueEditText = new EditText(this);
-        addressValueEditText.setTextSize(30);
+        mAddressValueEditText = new EditText(this);
+        mAddressValueEditText.setTextSize(30);
 
         // WEBSITE
         TextView websiteTextView = new TextView(this);
@@ -187,30 +166,30 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         websiteTextView.setTextSize(20);
         websiteTextView.setPadding(0, 15, 0, 0);
 
-        websiteValueEditText = new EditText(this);
-        websiteValueEditText.setTextSize(30);
+        mWebsiteValueEditText = new EditText(this);
+        mWebsiteValueEditText.setTextSize(30);
 
         // ADD VIEWS TO MAIN LINEAR LAYOUT
-        mainLinearLayout.addView(nameTextView);
-        mainLinearLayout.addView(nameValueEditText);
-        mainLinearLayout.addView(phoneNumberTextView);
-        mainLinearLayout.addView(phoneNumberValueEditText);
-        mainLinearLayout.addView(emailTextView);
-        mainLinearLayout.addView(emailValueEditText);
-        mainLinearLayout.addView(dobTextView);
-        mainLinearLayout.addView(dobValueEditText);
-        mainLinearLayout.addView(addressTextView);
-        mainLinearLayout.addView(addressValueEditText);
-        mainLinearLayout.addView(websiteTextView);
-        mainLinearLayout.addView(websiteValueEditText);
-    }
+        mMainLinearLayout.addView(nameTextView);
+        mMainLinearLayout.addView(mNameValueEditText);
+        mMainLinearLayout.addView(phoneNumberTextView);
+        mMainLinearLayout.addView(mPhoneNumberValueEditText);
+        mMainLinearLayout.addView(emailTextView);
+        mMainLinearLayout.addView(mEmailValueEditText);
+        mMainLinearLayout.addView(dobTextView);
+        mMainLinearLayout.addView(mDobValueEditText);
+        mMainLinearLayout.addView(addressTextView);
+        mMainLinearLayout.addView(mAddressValueEditText);
+        mMainLinearLayout.addView(websiteTextView);
+        mMainLinearLayout.addView(mWebsiteValueEditText);
 
-    public void setDatePickerValue(String text) {
-        dobValueEditText.setText(text);
+        RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
+        mainRelativeLayout.addView(mMainLinearLayout);
     }
 
     @Override
     public void onDateSetInTheDialog(String date) {
-        dobValueEditText.setText(date);
+        mDobValueEditText.setText(date);
     }
+
 }

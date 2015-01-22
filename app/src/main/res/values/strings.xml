@@ -16,6 +16,7 @@
     <string name="search_hint">Search by name or phone number</string>
     <string name="add_person_to_contacts">Add person to contacts</string>
     <string name="search_for_contacts">Search for contacts</string>
+    <string name="no_result_for_search">no result</string>
 
     <!-- 3rd Screen | Contact details -->
     <string name="title_activity_contact_details">Contact details</string>
@@ -30,31 +31,33 @@
     <string name="send_button">Send</string>
     <string name="look_button">Look</string>
     <string name="visit_button">Visit</string>
+    <string name="address_is_empty">Sorry! Address is empty.</string>
+    <string name="cannot_find_address">Cannot find the address, or there was an error.</string>
 
     <!-- 4th Screen | Edit contact -->
     <string name="title_activity_contact_edit">Edit contact</string>
     <string name="save_contact">Save changes</string>
     <string name="cancel_contact">Cancel editing</string>
     <string name="delete_contact">Delete</string>
-    <string name="name_missing">Sorry! Name field is empty</string>
-    <string name="phone_number_missing">Sorry! Phone number field is empty</string>
+    <string name="name_missing">Sorry! Name field is empty.</string>
+    <string name="phone_number_missing">Sorry! Phone number field is empty.</string>
+    <string name="contact_updated">Contact %1$s(%2$s) was updated.</string>
+    <string name="delete_contact_confirmation">Delete contact</string>
+    <string name="delete_contact_confirmation_question">Sure you want to delete %1$s(%2$s)?</string>
+    <string name="contact_was_removed">Contact %1$s(%2$s) was removed.</string>
 
     <!-- 5th Screen | Add new contact -->
     <string name="title_activity_contact_add">Add a new contact</string>
     <string name="httpPrefixForWebsiteAddress">http://</string>
     <string name="httpsPrefixForWebsiteAddress">https://</string>
     <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
+    <string name="contact_added">Contact %1$s(%2$s) was added</string>
 
     <!-- 6th Screen | Map and weather -->
     <string name="title_activity_map_and_weather">Look up for address</string>
+    <string name="more_than_one_address_found">Hm. There was more than one mAddress. We picked up the first.</string>
 
     <!-- Test -->
-
-    <string name="hello_map">MAP</string>
     <string name="hello_weather">WEATHER</string>
-    <string name="cannot_find_address">Cannot find the address, or there was an error</string>
-    <string name="address_is_empty">Sorry! Address is empty.</string>
-    <string name="more_than_one_address_found">Hm. There was more than one address. We picked up the first.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

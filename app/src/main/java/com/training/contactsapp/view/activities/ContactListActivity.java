@@ -14,40 +14,37 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.db.UserDBImplementation;
+import com.training.contactsapp.database.UserDBImplementation;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.utils.UserAdapterToContactList;
+import com.training.contactsapp.utils.UserAdapterForContactList;
 
 import java.util.ArrayList;
 
 public class ContactListActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
-    private static final String TAG = "com.training.contactsapp.view.activities.ContactListActivity";
+    public final static String ADD_STATUS = "ADD_STATUS";
 
-    private UserDBImplementation userDBImplementation;
-    private SearchView searchView;
-    private ListView mainListView;
-
-    private ArrayList<User> users;
+    private UserDBImplementation mUserDBImplementation;
+    private SearchView mSearchView;
+    private ListView mMainListView;
+    private ArrayList<User> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        // DB
-        userDBImplementation = UserDBImplementation.getInstance(this);
-        Intent intent = getIntent();
+        mUserDBImplementation = UserDBImplementation.getInstance();
 
+        Intent intent = getIntent();
         String removeStatus = intent.getStringExtra(ContactEditActivity.REMOVE_STATUS);
         if (removeStatus != null) {
-            showToast(removeStatus);
-        }
-        String addStatus = intent.getStringExtra(ContactAddActivity.ADD_STATUS);
-        if (addStatus != null) {
-            showToast(addStatus);
+            Toast.makeText(this, removeStatus, Toast.LENGTH_LONG).show();
         }
 
-//        makeSomeDbSpecificTemporaryTasks(); // TODO: is for test purpose, I have to remove it
+        String addStatus = intent.getStringExtra(ADD_STATUS);
+        if (addStatus != null) {
+            Toast.makeText(this, addStatus, Toast.LENGTH_LONG).show();
+        }
 
         createListView();
     }
@@ -55,30 +52,24 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     @Override
     protected void onRestart() {
         super.onRestart();
-        mainListView.setAdapter(new UserAdapterToContactList(this, userDBImplementation.queryUsersUIDAndNameAndPhoneNumber()));
+        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumber()));
     }
 
     private void createListView() {
-        // Data to be displayed
-        users = userDBImplementation.queryUsersUIDAndNameAndPhoneNumber();
+        mUsers = mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumber();
 
-        // Adapter which will display the data
-        UserAdapterToContactList userAdapterToContactList = new UserAdapterToContactList(this, users);
-
-        mainListView = (ListView) findViewById(R.id.list_view);
-        mainListView.setAdapter(userAdapterToContactList);
-
-        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        UserAdapterForContactList userAdapterForContactList = new UserAdapterForContactList(this, mUsers);
+        mMainListView = (ListView) findViewById(R.id.list_view);
+        mMainListView.setAdapter(userAdapterForContactList);
+        mMainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User user = (User) parent.getItemAtPosition(position);
-                int uid = user.getUid();
-
-                Intent intentToContactDetails = new Intent(ContactListActivity.this, ContactDetailsActivity.class);
+                Intent intent = new Intent(ContactListActivity.this, ContactDetailsActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("user", userDBImplementation.queryUserByUID(user.getUid()));
-                intentToContactDetails.putExtras(bundle);
-                startActivity(intentToContactDetails);
+                User user = (User) parent.getItemAtPosition(position);
+                bundle.putSerializable(ContactDetailsActivity.USER_TAG, mUserDBImplementation.queryUserByUID(user.getUid()));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
@@ -87,38 +78,32 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         ArrayList<User> newUserSet = new ArrayList<User>();
         pattern = pattern.toLowerCase();
 
-        for (User user : users) {
+        for (User user : mUsers) {
             if (user.getName().toLowerCase().startsWith(pattern) || user.getPhoneNumber().toLowerCase().startsWith(pattern)) {
                 newUserSet.add(user);
             }
         }
-
         if (newUserSet.isEmpty()) {
-            newUserSet.add(new User(0, "no results", null, null, null, null, null));
+            newUserSet.add(new User(0, getResources().getString(R.string.no_result_for_search), null, null, null, null, null));
         }
-
-        mainListView.setAdapter(new UserAdapterToContactList(this, newUserSet));
+        mMainListView.setAdapter(new UserAdapterForContactList(this, newUserSet));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_contact_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.search_view);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint(getResources().getString(R.string.search_hint));
-        searchView.setOnQueryTextListener(this);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        mSearchView.setQueryHint(getResources().getString(R.string.search_hint));
+        mSearchView.setOnQueryTextListener(this);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.add_icon:
                 startActivity(new Intent(this, ContactAddActivity.class));
@@ -143,27 +128,6 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     public boolean onQueryTextChange(String s) {
         searchAndChangeListViewContent(s);
         return false;
-    }
-
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-    }
-
-    private void makeSomeDbSpecificTemporaryTasks() { // TODO: is for test purpos, I have to remove it
-        long re = userDBImplementation.deleteUsers();
-        userDBImplementation.insertUser(new User(-1, "Mihu Cosmin", "0754919860", "cosmin.mihu@gmail.com", "1992-10-27", "Nr. 45, Str. B.P.Hasdeu, 400371, Cluj-Napoca, Jud. Cluj, Romania", "http://www.cosminmihu.info/"));
-        userDBImplementation.insertUser(new User(-1, "Debre Elizabeth", "0735507173", "eliz_debre@yahoo.com", "1999-01-02", "address2", "https://www.facebook.com/debre.elizabeth"));
-        userDBImplementation.insertUser(new User(-1, "gipsey", "0735502246", "debredavid@yahoo.com", "1992-08-15", "Perecsenyi Magyar Baptista Imaház", "http://www.gipsey.tk"));
-        userDBImplementation.insertUser(new User(-1, "Fortech", "+40 264 438217", "office@fortech.ro", "2003-12-01", "Str. Frunzisului nr.106 400664 Cluj-Napoca", "http://www.fortech.ro/"));
-        userDBImplementation.insertUser(new User(-1, "fortech1", "+40 264 453303", "office@fortech.ro", "1999-01-02", "Fortech 15-17, Strada Meteor, Cluj-Napoca 400000", "http://www.fortech.ro/"));
-        userDBImplementation.insertUser(new User(-1, "Jakab Hunor", "+40747253683", "jakabh@cs.ubbcluj.ro", "1985-04-19", "str. Rozelor nr. 62 547535 Sangeorgiu de Padure Mures, Romania", "http://www.cs.ubbcluj.ro/~jakabh/"));
-        userDBImplementation.insertUser(new User(-1, "Name4", "004", "name4@yahoo.com", "1999-01-04", "address4", "http://www.gipsey.tk/4"));
-        userDBImplementation.insertUser(new User(-1, "Name5", "915673282", "name5@yahoo.com", "1999-01-05", "address5", "http://www.gipsey.tk/5"));
-        userDBImplementation.insertUser(new User(-1, "Name6", "006", "name6@yahoo.com", "1999-01-06", "address6", "http://www.gipsey.tk/6"));
-        userDBImplementation.insertUser(new User(-1, "Name7", "007", "name7@yahoo.com", "1999-01-07", "address7", "http://www.gipsey.tk/7"));
-        userDBImplementation.insertUser(new User(-1, "Name8", "008", "name8@yahoo.com", "1999-01-08", "address8", "http://www.gipsey.tk/8"));
-        userDBImplementation.insertUser(new User(-1, "Name9", "009", "name9@yahoo.com", "1999-9-9", "address9", "http://www.gipsey.tk/9"));
-        userDBImplementation.insertUser(new User(-1, "Name10", "0010", "name10@yahoo.com", "1999-10-10", "address10", "http://www.gipsey.tk/10"));
     }
 
 }

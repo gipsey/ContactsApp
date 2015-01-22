@@ -1,8 +1,9 @@
-package com.training.contactsapp.db;
+package com.training.contactsapp.database;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.training.contactsapp.utils.ContactsApplication;
 
 /**
  * Created by davidd on 1/14/15.
@@ -30,8 +31,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
             COLUMN_WEBSITE + " TEXT" +
             ")";
 
-    public UserDBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public UserDBHelper() {
+        super(ContactsApplication.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

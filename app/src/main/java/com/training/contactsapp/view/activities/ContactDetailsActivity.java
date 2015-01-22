@@ -16,9 +16,8 @@ import android.widget.Toast;
 import com.training.contactsapp.R;
 import com.training.contactsapp.model.User;
 
-
 public class ContactDetailsActivity extends ActionBarActivity implements View.OnClickListener {
-
+    public static final String USER_TAG = "USER";
     private User user;
 
     @Override
@@ -27,19 +26,13 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         setContentView(R.layout.activity_contact_details);
 
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("user");
+        user = (User) intent.getSerializableExtra(USER_TAG);
         String saveStatus = intent.getStringExtra(ContactEditActivity.SAVE_STATUS);
         if (saveStatus != null) {
             Toast.makeText(this, saveStatus, Toast.LENGTH_LONG).show();
         }
 
         createUI();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        // TODO: Update the list with possible new contacts???
     }
 
     private void createUI() {
@@ -191,7 +184,7 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
             startActivity(intent);
         } else if (v.getId() == R.id.look_button) {
             if (user.getAddress() == null || user.getAddress().isEmpty()) {
-                showToast(getResources().getString(R.string.address_is_empty));
+                Toast.makeText(this, getResources().getString(R.string.address_is_empty), Toast.LENGTH_LONG).show();
                 return;
             } else {
                 Intent intent = new Intent(this, MapAndWeatherActivity.class);
@@ -199,12 +192,10 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
                 startActivity(intent);
             }
         } else if (v.getId() == R.id.visit_button) {
-
             String websiteValue = user.getWebsite();
             if (!websiteValue.startsWith(getResources().getString(R.string.httpPrefixForWebsiteAddress)) && !websiteValue.startsWith(getResources().getString(R.string.httpsPrefixForWebsiteAddress))) {
                 websiteValue = getResources().getString(R.string.httpPrefixForWebsiteAddress) + websiteValue;
             }
-
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(websiteValue));
             startActivity(intent);
         }
@@ -213,31 +204,22 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_contact_details, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.edit_contact) {
             Intent intent = new Intent(this, ContactEditActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("user", user);
-            intent.putExtras(bundle); // TODO: It'll work? YES
+            bundle.putSerializable(USER_TAG, user);
+            intent.putExtras(bundle);
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 }

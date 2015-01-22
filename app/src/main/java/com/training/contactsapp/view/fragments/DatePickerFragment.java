@@ -23,12 +23,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        final Calendar calendar = Calendar.getInstance();
+        return new DatePickerDialog(getActivity(), this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -48,4 +44,5 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public interface ProcessDate {
         public void onDateSetInTheDialog(String date);
     }
+
 }

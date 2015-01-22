@@ -17,22 +17,18 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.training.contactsapp.R;
-import com.training.contactsapp.view.fragments.MyWeatherFragment;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MapAndWeatherActivity extends ActionBarActivity {
-
     // MAP
     private static final int ADDRESS_TO_BE_FOUND = 5;
     private final int GOOGLE_MAP_ZOOM = 15;
-    private MapFragment googleMapFragment;
-    private GoogleMap googleMap;
-
+    private MapFragment mGoogleMapFragment;
+    private GoogleMap mGoogleMap;
 
     // WEATHER
-    private MyWeatherFragment myWeatherFragment;
 
 
     @Override
@@ -48,18 +44,18 @@ public class MapAndWeatherActivity extends ActionBarActivity {
     }
 
     private void createMap(String addressToBeDisplayed) {
-        googleMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.google_map);
-        googleMap = googleMapFragment.getMap();
+        mGoogleMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.google_map);
+        mGoogleMap = mGoogleMapFragment.getMap();
 
         List<Address> addresses = getAddressesFromString(addressToBeDisplayed);
 
         if (addresses == null || addresses.isEmpty()) {
-            showToast(getResources().getString(R.string.cannot_find_address));
-        } else if (addresses.size() == 1) { // one location found
+            Toast.makeText(this, getResources().getString(R.string.cannot_find_address), Toast.LENGTH_LONG).show();
+        } else if (addresses.size() == 1) {
             showLocation(addresses.get(0), addressToBeDisplayed);
             Log.w(getClass().getName(), "One address found");
-        } else { // multiple locations found; should be fine to add a dialog here then user can select from max. 5 address
-            showToast(getResources().getString(R.string.more_than_one_address_found));
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.more_than_one_address_found), Toast.LENGTH_LONG).show();
             showLocation(addresses.get(0), addressToBeDisplayed);
             Log.w(getClass().getName(), "There was found more than one address");
         }
@@ -81,14 +77,14 @@ public class MapAndWeatherActivity extends ActionBarActivity {
     }
 
     private void showLocation(Address address, String addressToBeDisplayed) {
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.getUiSettings().setCompassEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mGoogleMap.getUiSettings().setCompassEnabled(true);
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
         LatLng latLngToShow = new LatLng(address.getLatitude(), address.getLongitude());
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLngToShow, GOOGLE_MAP_ZOOM);
-        googleMap.animateCamera(cameraUpdate);
-        googleMap.addMarker(new MarkerOptions().position(latLngToShow).title(addressToBeDisplayed));
+        mGoogleMap.animateCamera(cameraUpdate);
+        mGoogleMap.addMarker(new MarkerOptions().position(latLngToShow).title(addressToBeDisplayed));
     }
 
 
@@ -103,10 +99,6 @@ public class MapAndWeatherActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
 }
