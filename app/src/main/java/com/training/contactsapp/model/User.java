@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = -7060210544600464481L;
 
+    // TODO in Android spre deosebire de java, datele de clasa incep cu m, ex: uid => mUid
+    // datele statice incep cu s
     private int uid;
     private String name;
     private String phone_number;

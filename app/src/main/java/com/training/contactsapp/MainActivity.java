@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+// TODO sterge mesajul si liniile in plus
         // MAKE COMMIT
 
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
         };
         delayedStartHandler.postDelayed(runnable, SPLASH_DISPLAY_LENGTH);
 
-
+// TODO linie in plus
         Button enterButton = new Button(this);
         enterButton.setText(R.string.enter_button);
         enterButton.setOnClickListener(new View.OnClickListener() {

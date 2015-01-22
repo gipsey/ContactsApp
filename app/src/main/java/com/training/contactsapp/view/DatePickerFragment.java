@@ -12,6 +12,7 @@ import java.util.Calendar;
 /**
  * Created by davidd on 1/16/15.
  */
+// TODO ar trebui sa faca parte din packetul view.fragment
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     public ProcessDate processDate;
 
@@ -23,6 +24,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // TODO utilizeaza nume pentru variabile care sa sugereze ceea ce reprezinta
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);

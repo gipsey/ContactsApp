@@ -45,7 +45,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         if (addStatus != null) {
             showToast(addStatus);
         }
-
+// TODO so remove it
 //        makeSomeDbSpecificTemporaryTasks(); // TODO: is for test purpose, I have to remove it
 
         createListView();
@@ -71,10 +71,12 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User user = (User) parent.getItemAtPosition(position);
+                // TODO this var is not used
                 int uid = user.getUid();
 
                 Intent intentToContactDetails = new Intent(ContactListActivity.this, ContactDetailsActivity.class);
                 Bundle bundle = new Bundle();
+                // TODO create a constant for "user"
                 bundle.putSerializable("user", userDBImplementation.queryUserByUID(user.getUid()));
                 intentToContactDetails.putExtras(bundle);
                 startActivity(intentToContactDetails);
@@ -144,10 +146,13 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         return false;
     }
 
+    // TODO why do you create this method. you can use directly Toast.makeToast
     private void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
+    
+    // TODO move this in db layer
     private void makeSomeDbSpecificTemporaryTasks() { // TODO: is for test purpos, I have to remove it
         long re = userDBImplementation.deleteUsers();
         userDBImplementation.insertUser(new User(-1, "Mihu Cosmin", "0754919860", "cosmin.mihu@gmail.com", "1992-10-27", "Nr. 45, Str. B.P.Hasdeu, 400371, Cluj-Napoca, Jud. Cluj, Romania", "http://www.cosminmihu.info/"));

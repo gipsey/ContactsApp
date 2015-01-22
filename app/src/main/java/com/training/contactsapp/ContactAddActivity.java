@@ -21,7 +21,7 @@ import com.training.contactsapp.model.User;
 import com.training.contactsapp.utils.StyleProperties;
 import com.training.contactsapp.view.DatePickerFragment;
 
-
+// TODO ar trebui sa faca parte din packetul view.activities
 public class ContactAddActivity extends ActionBarActivity implements DatePickerFragment.ProcessDate {
     // GENERAL
     protected final static String ADD_STATUS = "add_status";
@@ -56,7 +56,7 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
         mainRelativeLayout.addView(mainLinearLayout);
 
-
+// TODO linie goala in plus
         userDBImplementation = UserDBImplementation.getInstance(this);
     }
 
@@ -72,7 +72,7 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent activity in AndroidManifest.xml.git
 
         switch (item.getItemId()) {
             case R.id.save_new_contact:

@@ -35,7 +35,7 @@
 
         <activity
             android:name=".ContactDetailsActivity"
-            android:label="@string/title_activity_contact_details"></activity>
+            android:label="@string/title_activity_contact_details" />
 
         <activity
             android:name=".ContactEditActivity"
