@@ -1,4 +1,4 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.training.contactsapp.MapAndWeatherActivity">
+    tools:context="com.training.contactsapp.view.activities.MapAndWeatherActivity">
 
 </menu>

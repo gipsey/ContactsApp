@@ -1,4 +1,4 @@
-package com.training.contactsapp;
+package com.training.contactsapp.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.training.contactsapp.R;
 import com.training.contactsapp.db.UserDBImplementation;
 import com.training.contactsapp.model.User;
 import com.training.contactsapp.utils.UserAdapterToContactList;
@@ -20,7 +21,7 @@ import com.training.contactsapp.utils.UserAdapterToContactList;
 import java.util.ArrayList;
 
 public class ContactListActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
-    private static final String TAG = "com.training.contactsapp.ContactListActivity";
+    private static final String TAG = "com.training.contactsapp.view.activities.ContactListActivity";
 
     private UserDBImplementation userDBImplementation;
     private SearchView searchView;

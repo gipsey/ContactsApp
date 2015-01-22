@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/special_white"
-    tools:context="com.training.contactsapp.view.MyWeatherFragment">
+    android:orientation="vertical"
+    tools:context="com.training.contactsapp.view.fragments.MyWeatherFragment">
 
     <TextView
         android:id="@+id/a"
@@ -16,16 +17,15 @@
         android:id="@+id/b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_weather"
-        android:layout_below="@id/a"/>
+        android:layout_below="@id/a"
+        android:text="@string/hello_weather" />
 
 
     <TextView
         android:id="@+id/c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_weather"
-        android:layout_below="@id/b"/>
+        android:layout_below="@id/b"
+        android:text="@string/hello_weather" />
 
-
-</RelativeLayout>
+</LinearLayout>

@@ -1,19 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/map_and_weather_activity_relative_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/map_frame_layout"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/google_map"
+        android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="80" />
 
-    <FrameLayout
-        android:id="@+id/weather_frame_layout"
+    <RelativeLayout
+        android:id="@+id/weather_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-    </FrameLayout>
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="20"
+        android:orientation="vertical">
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

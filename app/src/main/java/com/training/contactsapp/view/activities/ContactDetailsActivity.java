@@ -1,4 +1,4 @@
-package com.training.contactsapp;
+package com.training.contactsapp.view.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.training.contactsapp.R;
 import com.training.contactsapp.model.User;
 
 

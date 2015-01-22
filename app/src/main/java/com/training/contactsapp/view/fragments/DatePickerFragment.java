@@ -1,4 +1,4 @@
-package com.training.contactsapp.view;
+package com.training.contactsapp.view.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

@@ -1,4 +1,4 @@
-package com.training.contactsapp;
+package com.training.contactsapp.view.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -11,10 +11,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.training.contactsapp.R;
 
 
 public class MainActivity extends Activity {
@@ -92,27 +92,27 @@ public class MainActivity extends Activity {
             public void run() {
                 nameOfApplicationTextView1.setVisibility(View.VISIBLE);
             }
-        }, 250);
+        }, 200);
         startHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 nameOfApplicationTextView2.setVisibility(View.VISIBLE);
             }
-        }, 1000);
+        }, 700);
         startHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 nameOfApplicationTextView3.setVisibility(View.VISIBLE);
             }
-        }, 1750);
+        }, 1200);
         startHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 appVersionTextView.setVisibility(View.VISIBLE);
 //                enterButton.setEnabled(true);
             }
-        }, 2500);
-        startHandler.postDelayed(runnable, 3000);
+        }, 1700);
+        startHandler.postDelayed(runnable, 2000);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

@@ -3,6 +3,6 @@
     android:id="@+id/contact_edit_main_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.training.contactsapp.ContactAddActivity">
+    tools:context="com.training.contactsapp.view.activities.ContactAddActivity">
 
 </RelativeLayout>

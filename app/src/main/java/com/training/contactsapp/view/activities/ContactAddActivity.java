@@ -1,7 +1,5 @@
-package com.training.contactsapp;
+package com.training.contactsapp.view.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -18,21 +16,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.training.contactsapp.R;
 import com.training.contactsapp.db.UserDBImplementation;
 import com.training.contactsapp.model.User;
 import com.training.contactsapp.utils.StyleProperties;
-import com.training.contactsapp.view.DatePickerFragment;
+import com.training.contactsapp.view.fragments.DatePickerFragment;
 
 
-public class ContactEditActivity extends ActionBarActivity implements DatePickerFragment.ProcessDate {
-
+public class ContactAddActivity extends ActionBarActivity implements DatePickerFragment.ProcessDate {
     // GENERAL
-    protected final static String REMOVE_STATUS = "remove_status";
-    protected final static String SAVE_STATUS = "save_status";
+    protected final static String ADD_STATUS = "add_status";
+
     // DB
     UserDBImplementation userDBImplementation;
+
     // UI
-    private RelativeLayout mainRelativeLayout;
     private LinearLayout mainLinearLayout;
     private EditText nameValueEditText;
     private Drawable nameValueEditTextDrawable;
@@ -43,15 +41,11 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
     private EditText dobValueEditText;
     private EditText addressValueEditText;
     private EditText websiteValueEditText;
-    private User actualUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_edit);
-
-        Intent intent = getIntent();
-        actualUser = (User) intent.getSerializableExtra("user");
+        setContentView(R.layout.activity_contact_add);
 
         mainLinearLayout = new LinearLayout(this);
         mainLinearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -60,16 +54,18 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
 
         createUI();
 
-        mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
+        RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.contact_edit_main_relative_layout);
         mainRelativeLayout.addView(mainLinearLayout);
+
 
         userDBImplementation = UserDBImplementation.getInstance(this);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contact_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_contact_add, menu);
         return true;
     }
 
@@ -80,14 +76,14 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-            case R.id.save_contact:
+            case R.id.save_new_contact:
                 String name = nameValueEditText.getText().toString();
                 String phoneNumber = phoneNumberValueEditText.getText().toString();
 
                 if (name.isEmpty() && phoneNumber.isEmpty()) {
+                    Toast.makeText(this, R.string.name_and_phone_number_missing, Toast.LENGTH_LONG).show();
                     nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
                     phoneNumberValueEditText.setBackgroundColor(StyleProperties.errorColor);
-                    Toast.makeText(this, R.string.name_and_phone_number_missing, Toast.LENGTH_LONG).show();
                 } else if (name.isEmpty()) {
                     Toast.makeText(this, R.string.name_missing, Toast.LENGTH_LONG).show();
                     nameValueEditText.setBackgroundColor(StyleProperties.errorColor);
@@ -105,62 +101,33 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
                         nameValueEditText.setBackground(nameValueEditTextDrawable);
                     }
                 } else {
-                    User newUser = new User(actualUser.getUid(), name, phoneNumber, emailValueEditText.getText().toString(),
+                    User newUser = new User(-1, name, phoneNumber, emailValueEditText.getText().toString(),
                             dobValueEditText.getText().toString(), addressValueEditText.getText().toString(), websiteValueEditText.getText().toString());
-                    userDBImplementation.updateUser(newUser);
-                    Intent saveIntent = new Intent(this, ContactDetailsActivity.class);
+                    userDBImplementation.insertUser(newUser);
+                    Intent saveIntent = new Intent(this, ContactListActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("user", newUser);
                     saveIntent.putExtras(bundle);
-                    saveIntent.putExtra(SAVE_STATUS, "Contact " + newUser.getName() + "(" + newUser.getPhoneNumber() + ") was updated");
+                    saveIntent.putExtra(ADD_STATUS, "Contact " + newUser.getName() + "(" + newUser.getPhoneNumber() + ") was added");
                     startActivity(saveIntent);
                 }
                 return true;
-            case R.id.cancel_editing_contact:
-                Intent cancelIntent = new Intent(this, ContactDetailsActivity.class);
-                Bundle cancelBundle = new Bundle();
-                cancelBundle.putSerializable("user", actualUser);
-                cancelIntent.putExtras(cancelBundle);
-                startActivity(cancelIntent);
-                return true;
-            case R.id.delete_contact:
-                userDBImplementation.deleteUserByUID(actualUser.getUid());
-
-                AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(this);
-                deleteAlertDialog.setTitle("Delete contact");
-                deleteAlertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                deleteAlertDialog.setMessage("Sure you want to delete " + actualUser.getName() + "(" + actualUser.getPhoneNumber() + ")?");
-                deleteAlertDialog.setCancelable(true);
-                deleteAlertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent deleteIntent = new Intent(ContactEditActivity.this, ContactListActivity.class);
-                        deleteIntent.putExtra(REMOVE_STATUS, "Contact " + actualUser.getName() + "(" + actualUser.getPhoneNumber() + ") was removed");
-                        startActivity(deleteIntent);
-                    }
-                });
-                deleteAlertDialog.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                deleteAlertDialog.show();
-
+            case R.id.cancel_adding_new_contact:
+                startActivity(new Intent(this, ContactListActivity.class));
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-
     private void createUI() {
         // NAME
-        TextView nameTextView = new TextView(this); // TODO: Name and phone number to have a red color if input is wrong or empty
+        TextView nameTextView = new TextView(this);
         nameTextView.setText(R.string.name_text_view);
         nameTextView.setTextSize(20);
         nameTextView.setPadding(0, 15, 0, 0);
 
         nameValueEditText = new EditText(this);
-        nameValueEditText.setText(actualUser.getName());
         nameValueEditText.setTextSize(30);
         nameValueEditTextDrawable = nameValueEditText.getBackground();
 
@@ -171,7 +138,6 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         phoneNumberTextView.setPadding(0, 15, 0, 0);
 
         phoneNumberValueEditText = new EditText(this);
-        phoneNumberValueEditText.setText(actualUser.getPhoneNumber());
         phoneNumberValueEditText.setTextSize(30);
         phoneNumberValueEditText.setInputType(InputType.TYPE_CLASS_PHONE);
         phoneNumberValueEditTextDrawable = phoneNumberValueEditText.getBackground();
@@ -183,7 +149,6 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         emailTextView.setPadding(0, 15, 0, 0);
 
         emailValueEditText = new EditText(this);
-        emailValueEditText.setText(actualUser.getEmail());
         emailValueEditText.setTextSize(30);
 
         // DOB
@@ -193,9 +158,9 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         dobTextView.setPadding(0, 15, 0, 0);
 
         datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setCancelable(true);
 
         dobValueEditText = new EditText(this);
-        dobValueEditText.setText(actualUser.getDob());
         dobValueEditText.setTextSize(30);
         dobValueEditText.setFocusable(false);
         dobValueEditText.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +179,6 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         addressTextView.setPadding(0, 15, 0, 0);
 
         addressValueEditText = new EditText(this);
-        addressValueEditText.setText(actualUser.getAddress());
         addressValueEditText.setTextSize(30);
 
         // WEBSITE
@@ -224,7 +188,6 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         websiteTextView.setPadding(0, 15, 0, 0);
 
         websiteValueEditText = new EditText(this);
-        websiteValueEditText.setText(actualUser.getWebsite());
         websiteValueEditText.setTextSize(30);
 
         // ADD VIEWS TO MAIN LINEAR LAYOUT
@@ -240,6 +203,10 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
         mainLinearLayout.addView(addressValueEditText);
         mainLinearLayout.addView(websiteTextView);
         mainLinearLayout.addView(websiteValueEditText);
+    }
+
+    public void setDatePickerValue(String text) {
+        dobValueEditText.setText(text);
     }
 
     @Override
