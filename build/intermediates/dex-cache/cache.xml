@@ -16,6 +16,13 @@
         <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/classes-a557bb673a2d2536d77ddffd0f4420fc0f74cec3.jar" />
     </item>
     <item
+        jar="/Users/davidd/AndroidStudioProjects/ContactsApp/app/libs/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="973e832af433b44c3ed11c426f2f390b29f3f3f8">
+        <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/gson-2.2.4-d72a861f7e5ccfeaea3e5a7b7ef00e21d58e3ce0.jar" />
+    </item>
+    <item
         jar="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"

@@ -56,8 +56,17 @@
     <!-- 6th Screen | Map and weather -->
     <string name="title_activity_map_and_weather">Look up for address</string>
     <string name="more_than_one_address_found">Hm. There was more than one mAddress. We picked up the first.</string>
+    <string name="weather_loading">Weather for location\n%1$s\nis loading...</string>
+    <string name="weather_for_area_loading">Weather for the area is loading...</string>
 
     <!-- Test -->
     <string name="hello_weather">WEATHER</string>
+    <string name="no_weather_data">Sorry!\nThere is no location found.</string>
+    <string name="wind_speed">Wind speed</string>
+    <string name="temperature">Temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise</string>
 
 </resources>

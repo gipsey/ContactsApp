@@ -21,6 +21,7 @@ public class UserDBImplementation {
     private UserDBImplementation() {
         mUserDBHelper = new UserDBHelper();
         mSQLiteDatabase = mUserDBHelper.getWritableDatabase();
+        insertDefaultUsers();
     }
 
     public static UserDBImplementation getInstance() {

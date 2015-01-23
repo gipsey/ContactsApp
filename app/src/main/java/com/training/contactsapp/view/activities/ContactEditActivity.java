@@ -107,12 +107,14 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
                     saveIntent.putExtra(SAVE_STATUS, String.format(getResources().getString(R.string.contact_updated), newUser.getName(), newUser.getPhoneNumber()));
                     startActivity(saveIntent);
                 }
+                break;
             case R.id.cancel_editing_contact:
                 Intent cancelIntent = new Intent(this, ContactDetailsActivity.class);
                 Bundle cancelBundle = new Bundle();
                 cancelBundle.putSerializable(ContactDetailsActivity.USER_TAG, mActualUser);
                 cancelIntent.putExtras(cancelBundle);
                 startActivity(cancelIntent);
+                break;
             case R.id.delete_contact:
                 AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(this);
                 deleteAlertDialog.setTitle(getResources().getString(R.string.delete_contact_confirmation));
@@ -133,6 +135,7 @@ public class ContactEditActivity extends ActionBarActivity implements DatePicker
                     }
                 });
                 deleteAlertDialog.show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

@@ -87,9 +87,10 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
                     saveIntent.putExtra(ContactListActivity.ADD_STATUS, String.format(getResources().getString(R.string.contact_added), newUser.getName(), newUser.getPhoneNumber()));
                     startActivity(saveIntent);
                 }
-                return true;
+                break;
             case R.id.cancel_adding_new_contact:
                 startActivity(new Intent(this, ContactListActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

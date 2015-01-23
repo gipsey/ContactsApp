@@ -67,26 +67,26 @@ public class MainActivity extends Activity {
             public void run() {
                 mNameOfApplicationTextView1.setVisibility(View.VISIBLE);
             }
-        }, 200);
+        }, 100);
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mNameOfApplicationTextView2.setVisibility(View.VISIBLE);
             }
-        }, 700);
+        }, 400);
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mNameOfApplicationTextView3.setVisibility(View.VISIBLE);
             }
-        }, 1200);
+        }, 700);
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mAppVersionTextView.setVisibility(View.VISIBLE);
             }
-        }, 1700);
-        mStartHandler.postDelayed(mRunnable, 2000);
+        }, 1000);
+        mStartHandler.postDelayed(mRunnable, 1500);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

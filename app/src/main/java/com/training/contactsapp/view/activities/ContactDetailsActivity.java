@@ -185,7 +185,6 @@ public class ContactDetailsActivity extends ActionBarActivity implements View.On
         } else if (v.getId() == R.id.look_button) {
             if (user.getAddress() == null || user.getAddress().isEmpty()) {
                 Toast.makeText(this, getResources().getString(R.string.address_is_empty), Toast.LENGTH_LONG).show();
-                return;
             } else {
                 Intent intent = new Intent(this, MapAndWeatherActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, user.getAddress());

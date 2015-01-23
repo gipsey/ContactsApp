@@ -107,12 +107,9 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         switch (item.getItemId()) {
             case R.id.add_icon:
                 startActivity(new Intent(this, ContactAddActivity.class));
-                return true;
+                break;
             case R.id.search_view:
-                // nothing to do here
-                return true;
-            case R.id.action_settings:
-                return true;
+                break;
         }
 
         return super.onOptionsItemSelected(item);
