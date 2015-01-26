@@ -5,4 +5,13 @@
     <color name="darker_special_white">#D1D0CE</color>
     <color name="error_color">#FABEBE</color>
     <color name="action_bar_background">#1E90FF</color>
+    <color name="shadow_color">#000000</color>
+
+    <color name="text_color_for_button">#B0E2FF</color>
+    <color name="text_color_for_label">#62B1F6</color>
+
+    <color name="button_pressed_color">#3232CD</color>
+    <color name="button_focused_color">#380474</color>
+    <color name="button_normal_color">#436EEE</color>
+
 </resources>

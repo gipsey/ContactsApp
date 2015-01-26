@@ -2,22 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp">
 
-    <TextView
-        android:id="@+id/name_text_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/list_item_linear_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Name"
-        android:textSize="30dp" />
+        android:layout_weight="80"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/phone_number_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Phone number"
-        android:textSize="20dp" />
+        <TextView
+            android:id="@+id/name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/phone_number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone number"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/avatar_image_view"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="20" />
 
 </LinearLayout>

@@ -1,5 +1,9 @@
 package com.training.contactsapp.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -14,12 +18,13 @@ public class User implements Serializable {
     private String mDob;
     private String mAddress;
     private String mWebsite;
+    private byte[] mAvatar;
 
     public User() {
     }
 
     public User(int uid, String name, String phoneNumber, String email, String dob, String address,
-                String website) {
+                String website, byte[] avatar) {
         this.mUid = uid;
         this.mName = name;
         this.mPhoneNumber = phoneNumber;
@@ -27,6 +32,7 @@ public class User implements Serializable {
         this.mDob = dob;
         this.mAddress = address;
         this.mWebsite = website;
+        this.mAvatar = avatar; // TODO: probably here is nedd to copy by bytes not the reference, so we'll see
     }
 
     public int getUid() {
@@ -85,6 +91,24 @@ public class User implements Serializable {
         this.mWebsite = website;
     }
 
+    public byte[] getAvatar() {
+        return mAvatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.mAvatar = avatar;
+    }
+
+    public Bitmap getAvatarAsBitmap() {
+        return BitmapFactory.decodeByteArray(mAvatar, 0, mAvatar.length);
+    }
+
+    public void setAvatarAsBitmap(Bitmap bitmapAvatar) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmapAvatar.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        mAvatar = byteArrayOutputStream.toByteArray();
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -95,6 +119,7 @@ public class User implements Serializable {
                 ", dob='" + mDob + '\'' +
                 ", address='" + mAddress + '\'' +
                 ", website='" + mWebsite + '\'' +
+                ", avatar='" + mAvatar + "\'" +
                 '}';
     }
 }

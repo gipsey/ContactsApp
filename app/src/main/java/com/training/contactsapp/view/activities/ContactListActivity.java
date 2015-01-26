@@ -52,11 +52,11 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     @Override
     protected void onRestart() {
         super.onRestart();
-        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumber()));
+        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumberAndAvatar()));
     }
 
     private void createListView() {
-        mUsers = mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumber();
+        mUsers = mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumberAndAvatar();
 
         UserAdapterForContactList userAdapterForContactList = new UserAdapterForContactList(this, mUsers);
         mMainListView = (ListView) findViewById(R.id.list_view);
@@ -84,7 +84,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
             }
         }
         if (newUserSet.isEmpty()) {
-            newUserSet.add(new User(0, getResources().getString(R.string.no_result_for_search), null, null, null, null, null));
+            newUserSet.add(new User(0, getResources().getString(R.string.no_result_for_search), null, null, null, null, null, null));
         }
         mMainListView.setAdapter(new UserAdapterForContactList(this, newUserSet));
     }

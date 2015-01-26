@@ -1,12 +1,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="CustomAppTheme" parent="@style/Theme.AppCompat.Light">
+        <!--action bar style-->
         <item name="android:actionBarStyle" tools:ignore="NewApi">@style/CustomActionBar</item>
         <item name="actionBarStyle">@style/CustomActionBar</item>
-
         <item name="android:actionMenuTextColor">@color/special_white</item>
+
+        <!--button style-->
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+
+        <!--textview style-->
+        <!--<item name="android:textViewStyle">@style/CustomTextViewStyle</item>-->
     </style>
 
+    <!--Action Bar customization-->
     <style name="CustomActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="android:background" tools:ignore="NewApi">@color/action_bar_background</item>
         <item name="background">@color/action_bar_background</item>
@@ -15,8 +22,33 @@
         <item name="titleTextStyle">@style/ActionBarTitleText</item>
     </style>
 
+    <!--Action Bar Title Text customization-->
     <style name="ActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/special_white</item>
+    </style>
+
+
+    <!--Button customization-->
+    <style name="CustomButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+        <item name="android:textColor">@color/text_color_for_button</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/shadow_color</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <!--TextView customization-->
+    <style name="custom_text_view_style_for_labels">
+        <item name="android:textColor">@color/text_color_for_label</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">15dp</item>
     </style>
 
 

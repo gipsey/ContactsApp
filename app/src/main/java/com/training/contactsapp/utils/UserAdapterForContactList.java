@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.training.contactsapp.R;
@@ -30,10 +31,12 @@ public class UserAdapterForContactList extends ArrayAdapter<User> {
 
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name_text_view);
         TextView phoneNumberTextView = (TextView) convertView.findViewById(R.id.phone_number_text_view);
+        ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.avatar_image_view);
 
         User user = getItem(position);
         nameTextView.setText(user.getName());
         phoneNumberTextView.setText(user.getPhoneNumber());
+        avatarImageView.setImageBitmap(user.getAvatarAsBitmap());
 
         return convertView;
     }

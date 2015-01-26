@@ -80,7 +80,7 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
                     }
                 } else {
                     User newUser = new User(-1, name, phoneNumber, mEmailValueEditText.getText().toString(),
-                            mDobValueEditText.getText().toString(), mAddressValueEditText.getText().toString(), mWebsiteValueEditText.getText().toString());
+                            mDobValueEditText.getText().toString(), mAddressValueEditText.getText().toString(), mWebsiteValueEditText.getText().toString(), null);
                     mUserDBImplementation.insertUser(newUser);
 
                     Intent saveIntent = new Intent(this, ContactListActivity.class);
@@ -102,20 +102,16 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         mMainLinearLayout.setPadding(8, 8, 8, 8);
 
         // NAME
-        TextView nameTextView = new TextView(this);
+        TextView nameTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         nameTextView.setText(R.string.name_text_view);
-        nameTextView.setTextSize(20);
-        nameTextView.setPadding(0, 15, 0, 0);
 
         mNameValueEditText = new EditText(this);
         mNameValueEditText.setTextSize(30);
         mNameValueEditTextDrawable = mNameValueEditText.getBackground();
 
         // PHONE NUMBER
-        TextView phoneNumberTextView = new TextView(this);
+        TextView phoneNumberTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         phoneNumberTextView.setText(R.string.phone_number_text_view);
-        phoneNumberTextView.setTextSize(20);
-        phoneNumberTextView.setPadding(0, 15, 0, 0);
 
         mPhoneNumberValueEditText = new EditText(this);
         mPhoneNumberValueEditText.setTextSize(30);
@@ -123,19 +119,17 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         mPhoneNumberValueEditTextDrawable = mPhoneNumberValueEditText.getBackground();
 
         // EMAIL
-        TextView emailTextView = new TextView(this);
+        TextView emailTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         emailTextView.setText(R.string.email_text_view);
-        emailTextView.setTextSize(20);
-        emailTextView.setPadding(0, 15, 0, 0);
+
 
         mEmailValueEditText = new EditText(this);
         mEmailValueEditText.setTextSize(30);
 
         // DOB
-        TextView dobTextView = new TextView(this);
+        TextView dobTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         dobTextView.setText(R.string.dob_text_view);
-        dobTextView.setTextSize(20);
-        dobTextView.setPadding(0, 15, 0, 0);
+
 
         mDatePickerFragment = new DatePickerFragment();
         mDatePickerFragment.setCancelable(true);
@@ -153,19 +147,15 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
         });
 
         // ADDRESS
-        TextView addressTextView = new TextView(this);
+        TextView addressTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         addressTextView.setText(R.string.address_text_view);
-        addressTextView.setTextSize(20);
-        addressTextView.setPadding(0, 15, 0, 0);
 
         mAddressValueEditText = new EditText(this);
         mAddressValueEditText.setTextSize(30);
 
         // WEBSITE
-        TextView websiteTextView = new TextView(this);
+        TextView websiteTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
         websiteTextView.setText(R.string.website_text_view);
-        websiteTextView.setTextSize(20);
-        websiteTextView.setPadding(0, 15, 0, 0);
 
         mWebsiteValueEditText = new EditText(this);
         mWebsiteValueEditText.setTextSize(30);
