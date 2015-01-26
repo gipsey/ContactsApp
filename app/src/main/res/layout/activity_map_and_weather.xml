@@ -11,13 +11,12 @@
         android:layout_height="0dp"
         android:layout_weight="80" />
 
-    <RelativeLayout
-        android:id="@+id/weather_relative_layout"
+    <LinearLayout
+        android:id="@+id/weather_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        android:layout_weight="20">
-
-    </RelativeLayout>
+        android:layout_weight="20"
+        android:orientation="vertical" />
 
 </LinearLayout>

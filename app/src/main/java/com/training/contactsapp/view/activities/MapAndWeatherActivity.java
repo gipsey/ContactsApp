@@ -1,18 +1,13 @@
 package com.training.contactsapp.view.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class MapAndWeatherActivity extends ActionBarActivity {
+public class MapAndWeatherActivity extends Activity {
     // MAP
     private static final int ADDRESS_TO_BE_FOUND = 5;
     private final int GOOGLE_MAP_ZOOM = 15;
@@ -41,7 +36,7 @@ public class MapAndWeatherActivity extends ActionBarActivity {
     private String mLocationAddressSuggestedByGoogleMaps;
     private LatLng mLatLngSuggestedByGoogleMaps;
     // WEATHER
-    private RelativeLayout mWeatherMainRelativeLayout;
+    private LinearLayout mWeatherMainLinearLayout;
     private TextView mWeatherStatusTextView;
     private NetworkConnectionToGetWeather mNetworkConnectionToGetWeather;
 
@@ -145,17 +140,13 @@ public class MapAndWeatherActivity extends ActionBarActivity {
     }
 
     private void initializeStatusTextViewAndAddToMainLayout() {
-        mWeatherMainRelativeLayout = (RelativeLayout) findViewById(R.id.weather_relative_layout);
+        mWeatherMainLinearLayout = (LinearLayout) findViewById(R.id.weather_linear_layout);
 
         mWeatherStatusTextView = new TextView(this);
         mWeatherStatusTextView.setTextSize(15);
         mWeatherStatusTextView.setGravity(Gravity.CENTER);
 
-        RelativeLayout.LayoutParams statusTextViewLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        statusTextViewLayoutParams.addRule(View.TEXT_ALIGNMENT_CENTER);
-        mWeatherStatusTextView.setLayoutParams(statusTextViewLayoutParams);
-
-        mWeatherMainRelativeLayout.addView(mWeatherStatusTextView);
+        mWeatherMainLinearLayout.addView(mWeatherStatusTextView);
     }
 
     private void getWeatherDataBasedOnLatLng() {
@@ -164,9 +155,9 @@ public class MapAndWeatherActivity extends ActionBarActivity {
     }
 
     public void setWeatherData(Weather weather) {
-        mWeatherMainRelativeLayout.removeAllViews();
+        mWeatherMainLinearLayout.removeAllViews();
         LinearLayout weatherNewLinearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.weather_layout, null);
-        mWeatherMainRelativeLayout.addView(weatherNewLinearLayout);
+        mWeatherMainLinearLayout.addView(weatherNewLinearLayout);
 
         String latitude = weather.coordinates.mLatitude.toString();
         String longitude = weather.coordinates.mLongitude.toString();
@@ -208,18 +199,6 @@ public class MapAndWeatherActivity extends ActionBarActivity {
         TextView sunsetTextView = (TextView) findViewById(R.id.sunset_text_view);
         sunsetTextView.setText(sunSet);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map_and_weather, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
     }
 
 }

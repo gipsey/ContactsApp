@@ -18,4 +18,6 @@ public class ContactsApplication extends Application {
         super.onCreate();
         sContext = getApplicationContext();
     }
+
+
 }
