@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingBottom="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="5dp">
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
 
     <LinearLayout
         android:id="@+id/list_item_linear_layout"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/avatar_image_view"
+        android:id="@+id/image_view_avatar"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="20" />

@@ -48,11 +48,8 @@
                 android:value=".ContactListActivity" />
         </activity>
         <activity
-            android:name=".view.activities.ContactDetailsActivity"
+            android:name=".view.activities.ContactDetailsAndEditActivity"
             android:label="@string/title_activity_contact_details" />
-        <activity
-            android:name=".view.activities.ContactEditActivity"
-            android:label="@string/title_activity_contact_edit" />
         <activity
             android:name=".view.activities.ContactAddActivity"
             android:label="@string/title_activity_contact_add" />

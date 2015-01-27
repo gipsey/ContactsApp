@@ -36,7 +36,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         mUserDBImplementation = UserDBImplementation.getInstance();
 
         Intent intent = getIntent();
-        String removeStatus = intent.getStringExtra(ContactEditActivity.REMOVE_STATUS);
+        String removeStatus = intent.getStringExtra(ContactDetailsAndEditActivity.REMOVE_STATUS);
         if (removeStatus != null) {
             Toast.makeText(this, removeStatus, Toast.LENGTH_LONG).show();
         }
@@ -64,10 +64,10 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         mMainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ContactListActivity.this, ContactDetailsActivity.class);
+                Intent intent = new Intent(ContactListActivity.this, ContactDetailsAndEditActivity.class);
                 Bundle bundle = new Bundle();
                 User user = (User) parent.getItemAtPosition(position);
-                bundle.putSerializable(ContactDetailsActivity.USER_TAG, mUserDBImplementation.queryUserByUID(user.getUid()));
+                bundle.putSerializable(ContactDetailsAndEditActivity.USER_TAG, mUserDBImplementation.queryUserByUID(user.getUid()));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

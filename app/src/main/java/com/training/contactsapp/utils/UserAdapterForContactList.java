@@ -31,7 +31,7 @@ public class UserAdapterForContactList extends ArrayAdapter<User> {
 
         TextView nameTextView = (TextView) convertView.findViewById(R.id.name_text_view);
         TextView phoneNumberTextView = (TextView) convertView.findViewById(R.id.phone_number_text_view);
-        ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.avatar_image_view);
+        ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.image_view_avatar);
 
         User user = getItem(position);
         nameTextView.setText(user.getName());

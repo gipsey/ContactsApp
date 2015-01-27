@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="call_button" type="id" />
-    <item name="send_button" type="id" />
-    <item name="visit_button" type="id" />
-    <item name="look_button" type="id" />
-
-    <item name="name_of_application1" type="id">1</item>
-    <item name="name_of_application2" type="id">2</item>
-    <item name="name_of_application3" type="id">3</item>
-
-    <item name="version_of_application" type="id">0</item>
-
+    <item name="name_of_application1" type="id" />
+    <item name="name_of_application2" type="id" />
+    <item name="name_of_application3" type="id" />
+    <item name="version_of_application" type="id" />
 </resources>

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView style="@style/custom_text_view_style_for_labels" />
+<TextView style="@style/text_view_style_for_labels" />

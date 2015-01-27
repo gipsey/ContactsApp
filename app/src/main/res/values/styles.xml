@@ -30,7 +30,7 @@
 
     <!--Button customization-->
     <style name="CustomButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
-        <item name="android:textColor">@color/text_color_for_button</item>
+        <item name="android:textColor">@color/text_color_for_button_text</item>
         <item name="android:background">@drawable/button_selector</item>
         <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">@color/shadow_color</item>
@@ -40,7 +40,7 @@
     </style>
 
     <!--TextView customization-->
-    <style name="custom_text_view_style_for_labels">
+    <style name="text_view_style_for_labels">
         <item name="android:textColor">@color/text_color_for_label</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -49,6 +49,14 @@
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">0dp</item>
         <item name="android:textSize">15dp</item>
+    </style>
+
+    <!--EditText customization-->
+    <style name="edit_text_style_to_show_data">
+        <item name="android:textColor">@color/text_color_for_edit_text</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
 

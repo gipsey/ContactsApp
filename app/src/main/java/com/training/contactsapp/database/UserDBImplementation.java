@@ -19,18 +19,18 @@ import java.util.List;
  */
 public class UserDBImplementation {
     private static volatile UserDBImplementation sInstance;
+    private UserDBHelper mUserDBHelper;
+    private SQLiteDatabase mSQLiteDatabase;
     private final String[] ALL_USER_COLUMNS = {mUserDBHelper.COLUMN_UID, mUserDBHelper.COLUMN_NAME,
             mUserDBHelper.COLUMN_PHONE_NUMBER, mUserDBHelper.COLUMN_EMAIL,
             mUserDBHelper.COLUMN_DOB, mUserDBHelper.COLUMN_ADDRESS,
             mUserDBHelper.COLUMN_WEBSITE, mUserDBHelper.COLUMN_AVATAR};
-    private UserDBHelper mUserDBHelper;
-    private SQLiteDatabase mSQLiteDatabase;
 
     private UserDBImplementation() {
         mUserDBHelper = new UserDBHelper();
         mSQLiteDatabase = mUserDBHelper.getWritableDatabase();
 
-//        insertDefaultUsers();
+        insertDefaultUsers();
     }
 
     public static UserDBImplementation getInstance() {
@@ -149,22 +149,26 @@ public class UserDBImplementation {
     private void insertDefaultUsers() {
         long re = deleteUsers();
 
-        byte[] avatarMdc = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.mdc));
-        byte[] avatarLauncher = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.ic_launcher));
+        byte[] avatarEliz = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_eliz));
+        byte[] avatarFortech = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_fortech));
+        byte[] avatarGipsey = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_gipsey));
+        byte[] avatarHunor = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_hunor));
+        byte[] avatarMdc = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_mdc));
+        byte[] avatarUnknown = getByteArrayFromBitmap(BitmapFactory.decodeResource(ContactsApplication.getContext().getResources(), R.drawable.avatar_unknown));
 
         insertUser(new User(-1, "Mihu Cosmin", "0754919860", "cosmin.mihu@gmail.com", "1992-10-27", "Nr. 45, Str. B.P.Hasdeu, 400371, Cluj-Napoca, Jud. Cluj, Romania", "http://www.cosminmihu.info/", avatarMdc));
-        insertUser(new User(-1, "Debre Elizabeth", "0735507173", "eliz_debre@yahoo.com", "1999-01-02", "address2", "https://www.facebook.com/debre.elizabeth", avatarLauncher));
-//        insertUser(new User(-1, "gipsey", "0735502246", "debredavid@yahoo.com", "1992-08-15", "Perecsenyi Magyar Baptista Imaház", "http://www.gipsey.tk"));
-//        insertUser(new User(-1, "Fortech", "+40 264 438217", "office@fortech.ro", "2003-12-01", "Str. Frunzisului nr.106 400664 Cluj-Napoca", "http://www.fortech.ro/"));
-//        insertUser(new User(-1, "fortech1", "+40 264 453303", "office@fortech.ro", "1999-01-02", "Fortech 15-17, Strada Meteor, Cluj-Napoca 400000", "http://www.fortech.ro/"));
-//        insertUser(new User(-1, "Jakab Hunor", "+40747253683", "jakabh@cs.ubbcluj.ro", "1985-04-19", "str. Rozelor nr. 62 547535 Sangeorgiu de Padure Mures, Romania", "http://www.cs.ubbcluj.ro/~jakabh/"));
-//        insertUser(new User(-1, "Name4", "004", "name4@yahoo.com", "1999-01-04", "address4", "http://www.gipsey.tk/4"));
-//        insertUser(new User(-1, "Name5", "915673282", "name5@yahoo.com", "1999-01-05", "address5", "http://www.gipsey.tk/5"));
-//        insertUser(new User(-1, "Name6", "006", "name6@yahoo.com", "1999-01-06", "address6", "http://www.gipsey.tk/6"));
-//        insertUser(new User(-1, "Name7", "007", "name7@yahoo.com", "1999-01-07", "address7", "http://www.gipsey.tk/7"));
-//        insertUser(new User(-1, "Name8", "008", "name8@yahoo.com", "1999-01-08", "address8", "http://www.gipsey.tk/8"));
-//        insertUser(new User(-1, "Name9", "009", "name9@yahoo.com", "1999-9-9", "address9", "http://www.gipsey.tk/9"));
-//        insertUser(new User(-1, "Name10", "0010", "name10@yahoo.com", "1999-10-10", "address10", "http://www.gipsey.tk/10"));
+        insertUser(new User(-1, "Debre Elizabeth", "0735507173", "eliz_debre@yahoo.com", "1999-01-02", "address2", "https://www.facebook.com/debre.elizabeth", avatarEliz));
+        insertUser(new User(-1, "gipsey", "0735502246", "debredavid@yahoo.com", "1992-08-15", "Perecsenyi Magyar Baptista Imaház", "http://www.avatar_gipsey.tk", avatarGipsey));
+        insertUser(new User(-1, "Fortech", "+40 264 438217", "office@avatar_fortech.ro", "2003-12-01", "Str. Frunzisului nr.106 400664 Cluj-Napoca", "http://www.avatar_fortech.ro/", avatarFortech));
+        insertUser(new User(-1, "fortech1", "+40 264 453303", "office@avatar_fortech.ro", "1999-01-02", "Fortech 15-17, Strada Meteor, Cluj-Napoca 400000", "http://www.avatar_fortech.ro/", avatarFortech));
+        insertUser(new User(-1, "Jakab Hunor", "+40747253683", "jakabh@cs.ubbcluj.ro", "1985-04-19", "str. Rozelor nr. 62 547535 Sangeorgiu de Padure Mures, Romania", "http://www.cs.ubbcluj.ro/~jakabh/", avatarHunor));
+        insertUser(new User(-1, "Name4", "004", "name4@yahoo.com", "1999-01-04", "address4", "http://www.gipsey.tk/4", avatarUnknown));
+        insertUser(new User(-1, "Name5", "915673282", "name5@yahoo.com", "1999-01-05", "address5", "http://www.gipsey.tk/5", avatarUnknown));
+        insertUser(new User(-1, "Name6", "006", "name6@yahoo.com", "1999-01-06", "address6", "http://www.gipsey.tk/6", avatarUnknown));
+        insertUser(new User(-1, "Name7", "007", "name7@yahoo.com", "1999-01-07", "address7", "http://www.gipsey.tk/7", avatarUnknown));
+        insertUser(new User(-1, "Name8", "008", "name8@yahoo.com", "1999-01-08", "address8", "http://www.gipsey.tk/8", avatarUnknown));
+        insertUser(new User(-1, "Name9", "009", "name9@yahoo.com", "1999-9-9", "address9", "http://www.gipsey.tk/9", avatarUnknown));
+        insertUser(new User(-1, "Name10", "0010", "name10@yahoo.com", "1999-10-10", "address10", "http://www.gipsey.tk/10", avatarUnknown));
     }
 
     public byte[] getByteArrayFromBitmap(Bitmap bitmapAvatar) {

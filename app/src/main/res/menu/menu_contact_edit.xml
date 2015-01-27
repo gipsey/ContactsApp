@@ -1,22 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.training.contactsapp.view.activities.ContactEditActivity">
+    tools:context="com.training.contactsapp.view.activities.ContactDetailsAndEditActivity">
 
     <item
-        android:id="@+id/save_contact"
+        android:id="@+id/menu_item_save_contact"
         android:icon="@drawable/ic_action_save"
         android:title="@string/save_contact"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/cancel_editing_contact"
+        android:id="@+id/menu_item_cancel_editing_contact"
         android:icon="@drawable/ic_action_cancel"
         android:title="@string/cancel_contact"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/delete_contact"
+        android:id="@+id/menu_item_delete_contact"
         android:title="@string/delete_contact"
         app:showAsAction="always" />
 

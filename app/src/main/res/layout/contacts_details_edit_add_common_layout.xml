@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contacts_details_edit_add_common_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.training.contactsapp.view.activities.ContactDetailsAndEditActivity">
+
+    <!--Name-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_view_style_for_labels"
+                android:text="@string/name_text_view" />
+
+            <EditText
+                android:id="@+id/edit_text_name_id"
+                style="@style/edit_text_style_to_show_data" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_view_avatar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+
+    <!--Phone number-->
+    <TextView
+        style="@style/text_view_style_for_labels"
+        android:text="@string/phone_number_text_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_for_details_edit_add"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_text_phone_number_id"
+            style="@style/edit_text_style_to_show_data"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/button_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/button_call_text" />
+    </LinearLayout>
+
+
+    <!--Email-->
+    <TextView
+        style="@style/text_view_style_for_labels"
+        android:text="@string/text_view_email" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_for_details_edit_add"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_text_email_id"
+            style="@style/edit_text_style_to_show_data"
+            android:layout_width="0dp"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/button_send_text" />
+    </LinearLayout>
+
+
+    <!--Dob-->
+    <TextView
+        style="@style/text_view_style_for_labels"
+        android:text="@string/text_view_dob" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_for_details_edit_add">
+
+        <EditText
+            android:id="@+id/edit_text_dob_id"
+            style="@style/edit_text_style_to_show_data" />
+    </RelativeLayout>
+
+
+    <!--Address-->
+    <TextView
+        style="@style/text_view_style_for_labels"
+        android:text="@string/text_view_address" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_for_details_edit_add"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_text_address_id"
+            style="@style/edit_text_style_to_show_data"
+            android:layout_width="0dp"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/button_look"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/button_look_text" />
+    </LinearLayout>
+
+
+    <!--Website-->
+    <TextView
+        style="@style/text_view_style_for_labels"
+        android:text="@string/text_view_website" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_for_details_edit_add"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_text_website_id"
+            style="@style/edit_text_style_to_show_data"
+            android:layout_width="0dp"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/button_visit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@string/button_visit_text" />
+    </LinearLayout>
+
+</LinearLayout>

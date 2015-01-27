@@ -120,7 +120,7 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
 
         // EMAIL
         TextView emailTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
-        emailTextView.setText(R.string.email_text_view);
+        emailTextView.setText(R.string.text_view_email);
 
 
         mEmailValueEditText = new EditText(this);
@@ -128,7 +128,7 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
 
         // DOB
         TextView dobTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
-        dobTextView.setText(R.string.dob_text_view);
+        dobTextView.setText(R.string.text_view_dob);
 
 
         mDatePickerFragment = new DatePickerFragment();
@@ -148,14 +148,14 @@ public class ContactAddActivity extends ActionBarActivity implements DatePickerF
 
         // ADDRESS
         TextView addressTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
-        addressTextView.setText(R.string.address_text_view);
+        addressTextView.setText(R.string.text_view_address);
 
         mAddressValueEditText = new EditText(this);
         mAddressValueEditText.setTextSize(30);
 
         // WEBSITE
         TextView websiteTextView = (TextView) getLayoutInflater().inflate(R.layout.label_text_view_style, null);
-        websiteTextView.setText(R.string.website_text_view);
+        websiteTextView.setText(R.string.text_view_website);
 
         mWebsiteValueEditText = new EditText(this);
         mWebsiteValueEditText.setTextSize(30);

@@ -23,14 +23,14 @@
     <string name="edit_contacts">Edit contact</string>
     <string name="name_text_view">Name</string>
     <string name="phone_number_text_view">Phone number</string>
-    <string name="email_text_view">Email</string>
-    <string name="dob_text_view">Date of birth</string>
-    <string name="address_text_view">Address</string>
-    <string name="website_text_view">Website</string>
-    <string name="call_button">Call</string>
-    <string name="send_button">Send</string>
-    <string name="look_button">Look</string>
-    <string name="visit_button">Visit</string>
+    <string name="text_view_email">Email</string>
+    <string name="text_view_dob">Date of birth</string>
+    <string name="text_view_address">Address</string>
+    <string name="text_view_website">Website</string>
+    <string name="button_call_text">Call</string>
+    <string name="button_send_text">Send</string>
+    <string name="button_look_text">Look</string>
+    <string name="button_visit_text">Visit</string>
     <string name="address_is_empty">Sorry! Address is empty.</string>
     <string name="cannot_find_address">Cannot find the address, or there was an error.</string>
 
