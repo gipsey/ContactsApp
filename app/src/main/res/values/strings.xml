@@ -68,5 +68,11 @@
     <string name="humidity">Humidity</string>
     <string name="sunset">Sunset</string>
     <string name="sunrise">Sunrise</string>
+    <string name="select_picture_string">Select picture</string>
+    <string name="image_cannot_be_loaded">The selected image cannot be loaded.</string>
+    <string name="cannot_crop_image">Sorry! But you can\'t crop image. No app found for this.</string>
+    <string name="button_plan_meeting_text">Plan meeting</string>
+    <string name="meeting_planning_title">Meeting with %1$s.</string>
+    <string name="cannot_create_meeting">Cannot create meeting.\\nProbably you do not have the necessary app.</string>
 
 </resources>

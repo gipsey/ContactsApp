@@ -9,14 +9,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.training.contactsapp.model.Weather;
-import com.training.contactsapp.utils.ContactsApplication;
 import com.training.contactsapp.view.activities.MapAndWeatherActivity;
 
 /**
  * Created by davidd on 1/23/15.
  */
 public class NetworkConnectionToGetWeather implements DownloadWebPageTask.Data {
-
     private static final String URL_ADDRESS = "http://api.openweathermap.org/data/2.5/weather";
     private static final String URL_PARAMETER_LAT = "lat";
     private static final String URL_PARAMETER_LONG = "lon";

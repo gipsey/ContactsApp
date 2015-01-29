@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.training.contactsapp">
 
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,7 +17,7 @@
         android:required="true" />
 
     <application
-        android:name=".utils.ContactsApplication"
+        android:name=".business.ContactsApplication"
         android:allowBackup="true"
         android:icon="@drawable/contacts"
         android:label="@string/app_name"

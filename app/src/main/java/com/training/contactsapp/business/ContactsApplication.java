@@ -1,4 +1,4 @@
-package com.training.contactsapp.utils;
+package com.training.contactsapp.business;
 
 import android.app.Application;
 import android.content.Context;
@@ -18,6 +18,5 @@ public class ContactsApplication extends Application {
         super.onCreate();
         sContext = getApplicationContext();
     }
-
 
 }

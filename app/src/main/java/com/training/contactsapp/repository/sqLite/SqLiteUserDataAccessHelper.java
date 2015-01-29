@@ -1,14 +1,14 @@
-package com.training.contactsapp.database;
+package com.training.contactsapp.repository.sqLite;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.training.contactsapp.utils.ContactsApplication;
+import com.training.contactsapp.business.ContactsApplication;
 
 /**
  * Created by davidd on 1/14/15.
  */
-public class UserDBHelper extends SQLiteOpenHelper {
+class SqLiteUserDataAccessHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "user.db";
     public static final int DATABASE_VERSION = 2;
 
@@ -33,7 +33,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
             COLUMN_AVATAR + " BLOB" +
             ")";
 
-    public UserDBHelper() {
+    public SqLiteUserDataAccessHelper() {
         super(ContactsApplication.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 

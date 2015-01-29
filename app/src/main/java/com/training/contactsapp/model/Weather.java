@@ -8,12 +8,6 @@ import java.util.List;
  * Created by davidd on 1/23/15.
  */
 public class Weather {
-
-//{"coord":{"lon":139.72,"lat":35.8},"sys":{"message":0.2204,"country":"JP","sunrise":1421963234,"sunset":1421999915},
-// "weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"base":"cmc stations",
-// "main":{"temp":4.359,"temp_min":4.359,"temp_max":4.359,"pressure":1024.44,"sea_level":1029.55,"grnd_level":1024.44,"humidity":100},
-// "wind":{"speed":6.61,"deg":353.503},"clouds":{"all":32},"dt":1422022080,"id":1864231,"name":"Egotamachi","cod":200}
-
     @SerializedName("coord")
     public Coordinates coordinates;
     public Sys sys;

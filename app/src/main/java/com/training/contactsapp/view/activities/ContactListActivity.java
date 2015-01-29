@@ -14,16 +14,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.database.UserDBImplementation;
+import com.training.contactsapp.business.UserAdapterForContactList;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.utils.UserAdapterForContactList;
+import com.training.contactsapp.repository.DataAccessFactory;
+import com.training.contactsapp.repository.UserDataAccess;
 
 import java.util.ArrayList;
 
 public class ContactListActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
     public final static String ADD_STATUS = "ADD_STATUS";
 
-    private UserDBImplementation mUserDBImplementation;
+    private UserDataAccess mUserDataAccess;
     private SearchView mSearchView;
     private ListView mMainListView;
     private ArrayList<User> mUsers;
@@ -33,7 +34,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        mUserDBImplementation = UserDBImplementation.getInstance();
+        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
 
         Intent intent = getIntent();
         String removeStatus = intent.getStringExtra(ContactDetailsAndEditActivity.REMOVE_STATUS);
@@ -52,11 +53,11 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     @Override
     protected void onRestart() {
         super.onRestart();
-        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumberAndAvatar()));
+        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDataAccess.getUsersUidNamePhoneNumberAvatar()));
     }
 
     private void createListView() {
-        mUsers = mUserDBImplementation.queryUsersUIDAndNameAndPhoneNumberAndAvatar();
+        mUsers = mUserDataAccess.getUsersUidNamePhoneNumberAvatar();
 
         UserAdapterForContactList userAdapterForContactList = new UserAdapterForContactList(this, mUsers);
         mMainListView = (ListView) findViewById(R.id.list_view);
@@ -67,7 +68,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
                 Intent intent = new Intent(ContactListActivity.this, ContactDetailsAndEditActivity.class);
                 Bundle bundle = new Bundle();
                 User user = (User) parent.getItemAtPosition(position);
-                bundle.putSerializable(ContactDetailsAndEditActivity.USER_TAG, mUserDBImplementation.queryUserByUID(user.getUid()));
+                bundle.putSerializable(ContactDetailsAndEditActivity.USER_TAG, mUserDataAccess.getUserByUid(user.getUid()));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

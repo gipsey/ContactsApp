@@ -1,4 +1,4 @@
-package com.training.contactsapp.utils;
+package com.training.contactsapp.business;
 
 import android.content.Context;
 import android.view.LayoutInflater;
