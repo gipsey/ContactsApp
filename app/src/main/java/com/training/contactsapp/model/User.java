@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
     private static final long serialVersionUid = -7060210544600464481L;
-    private int mUid;
+    private long mUid;
     private String mName;
     private String mPhoneNumber;
     private String mEmail;
@@ -19,11 +19,12 @@ public class User implements Serializable {
     private String mAddress;
     private String mWebsite;
     private byte[] mAvatar;
+    private String mAvatarPath;
 
     public User() {
     }
 
-    public User(int uid, String name, String phoneNumber, String email, String dob, String address,
+    public User(long uid, String name, String phoneNumber, String email, String dob, String address,
                 String website, byte[] avatar) {
         this.mUid = uid;
         this.mName = name;
@@ -35,11 +36,11 @@ public class User implements Serializable {
         this.mAvatar = avatar; // TODO: probably here is nedd to copy by bytes not the reference, so we'll see
     }
 
-    public int getUid() {
+    public long getUid() {
         return mUid;
     }
 
-    public void setUid(int mUid) {
+    public void setUid(long mUid) {
         this.mUid = mUid;
     }
 
@@ -107,6 +108,14 @@ public class User implements Serializable {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmapAvatar.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         mAvatar = byteArrayOutputStream.toByteArray();
+    }
+
+    public String getAvatarPath() {
+        return mAvatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.mAvatarPath = avatarPath;
     }
 
     @Override

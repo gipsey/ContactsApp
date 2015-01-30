@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.training.contactsapp">
 
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--this is used for saving files too-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -59,7 +59,7 @@
             android:label="@string/title_activity_contact_add" />
         <activity
             android:name=".view.activities.MapAndWeatherActivity"
-            android:label="@string/title_activity_map_and_weather"></activity>
+            android:label="@string/title_activity_map_and_weather" />
     </application>
 
 </manifest>

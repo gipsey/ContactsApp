@@ -2,6 +2,7 @@ package com.training.contactsapp.repository;
 
 import com.training.contactsapp.model.User;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
 public interface UserDataAccess {
     public List<User> getUsers();
 
-    public User getUserByUid(int uid);
+    public User getUserByUid(long uid);
 
-    public ArrayList<User> getUsersUidNamePhoneNumberAvatar();
+    public List<User> getUsersUidNamePhoneNumberAvatar();
 
     public long insertUser(User user);
 
@@ -21,7 +22,7 @@ public interface UserDataAccess {
 
     public long deleteUsers();
 
-    public long deleteUserByUid(int id);
+    public long deleteUserByUid(long id);
 
     public void insertDefaultUsers();
 }

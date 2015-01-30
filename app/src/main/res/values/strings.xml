@@ -75,4 +75,5 @@
     <string name="meeting_planning_title">Meeting with %1$s.</string>
     <string name="cannot_create_meeting">Cannot create meeting.\\nProbably you do not have the necessary app.</string>
 
+
 </resources>

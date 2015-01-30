@@ -12,13 +12,14 @@ import com.training.contactsapp.R;
 import com.training.contactsapp.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by davidd on 1/14/15.
  */
 public class UserAdapterForContactList extends ArrayAdapter<User> {
 
-    public UserAdapterForContactList(Context context, ArrayList<User> users) {
+    public UserAdapterForContactList(Context context, List<User> users) {
         super(context, 0, users);
     }
 

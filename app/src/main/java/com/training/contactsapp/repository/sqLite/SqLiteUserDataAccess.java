@@ -30,7 +30,7 @@ class SqLiteUserDataAccess implements UserDataAccess {
         mSqLiteUserDataAccessHelper = new SqLiteUserDataAccessHelper();
         mSQLiteDatabase = mSqLiteUserDataAccessHelper.getWritableDatabase();
 
-        insertDefaultUsers();
+//        insertDefaultUsers();
     }
 
     public List<User> getUsers() {
@@ -53,7 +53,7 @@ class SqLiteUserDataAccess implements UserDataAccess {
         return users;
     }
 
-    public User getUserByUid(int uid) {
+    public User getUserByUid(long uid) {
         String[] args = {String.valueOf(uid)};
 
         Cursor cursor = mSQLiteDatabase.query(mSqLiteUserDataAccessHelper.TABLE_NAME, ALL_USER_COLUMNS,
@@ -74,14 +74,14 @@ class SqLiteUserDataAccess implements UserDataAccess {
         );
     }
 
-    public ArrayList<User> getUsersUidNamePhoneNumberAvatar() {
+    public List<User> getUsersUidNamePhoneNumberAvatar() {
         String[] columns = {mSqLiteUserDataAccessHelper.COLUMN_UID, mSqLiteUserDataAccessHelper.COLUMN_NAME,
                 mSqLiteUserDataAccessHelper.COLUMN_PHONE_NUMBER, mSqLiteUserDataAccessHelper.COLUMN_AVATAR};
 
         Cursor cursor = mSQLiteDatabase.query(mSqLiteUserDataAccessHelper.TABLE_NAME, columns, null, null, null,
                 null, mSqLiteUserDataAccessHelper.COLUMN_NAME +
                         " COLLATE NOCASE ASC");
-        ArrayList<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<User>();
 
         while (cursor.moveToNext()) {
             User user = new User();
@@ -130,7 +130,7 @@ class SqLiteUserDataAccess implements UserDataAccess {
         return mSQLiteDatabase.delete(SqLiteUserDataAccessHelper.TABLE_NAME, null, null);
     }
 
-    public long deleteUserByUid(int id) {
+    public long deleteUserByUid(long id) {
         return mSQLiteDatabase.delete(mSqLiteUserDataAccessHelper.TABLE_NAME, mSqLiteUserDataAccessHelper.COLUMN_UID + "=" +
                 id, null);
     }

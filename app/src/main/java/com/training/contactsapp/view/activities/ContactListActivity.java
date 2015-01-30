@@ -20,6 +20,7 @@ import com.training.contactsapp.repository.DataAccessFactory;
 import com.training.contactsapp.repository.UserDataAccess;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactListActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
     public final static String ADD_STATUS = "ADD_STATUS";
@@ -27,7 +28,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     private UserDataAccess mUserDataAccess;
     private SearchView mSearchView;
     private ListView mMainListView;
-    private ArrayList<User> mUsers;
+    private List<User> mUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
