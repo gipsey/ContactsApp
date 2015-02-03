@@ -1,6 +1,7 @@
 package com.training.contactsapp.repository;
 
 import com.training.contactsapp.repository.file.FileDataAccesFactory;
+import com.training.contactsapp.repository.sqLite.SqLiteDataAccessFactory;
 
 /**
  * Created by davidd on 1/29/15.
@@ -12,8 +13,8 @@ public abstract class DataAccessFactory {
         if (sDataAccessFactoryInstance == null) {
             synchronized (DataAccessFactory.class) {
                 if (sDataAccessFactoryInstance == null) {
-//                    sDataAccessFactoryInstance = new SqLiteDataAccessFactory();
-                    sDataAccessFactoryInstance = new FileDataAccesFactory();
+                    sDataAccessFactoryInstance = new SqLiteDataAccessFactory();
+//                    sDataAccessFactoryInstance = new FileDataAccesFactory();
                 }
             }
         }

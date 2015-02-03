@@ -1,13 +1,16 @@
 package com.training.contactsapp.view.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +39,11 @@ public class MapAndWeatherActivity extends Activity {
     private String mLocationAddressSuggestedByGoogleMaps;
     private LatLng mLatLngSuggestedByGoogleMaps;
     // WEATHER
-    private LinearLayout mWeatherMainLinearLayout;
-    private TextView mWeatherStatusTextView;
+    private LinearLayout mWeatherLinearLayout;
+    private ProgressBar mWeatherLayoutProgressBar;
+
+    private TextView mWeatherStatusOrAddressTextView;
+
     private NetworkConnectionToGetWeather mNetworkConnectionToGetWeather;
 
     @Override
@@ -51,12 +57,9 @@ public class MapAndWeatherActivity extends Activity {
         // Create Weather
         initializeStatusTextViewAndAddToMainLayout();
         if (mLocationAddressSuggestedByGoogleMaps == null || mLocationAddressSuggestedByGoogleMaps.isEmpty()) {
-            mWeatherStatusTextView.setText(getResources().getString(R.string.no_weather_data));
-        } else if (mLocationAddressSuggestedByGoogleMaps.equals(NO_ADDRESS_NAME_FOUND)) {
-            mWeatherStatusTextView.setText(getResources().getString(R.string.weather_for_area_loading));
-            getWeatherDataBasedOnLatLng();
+            mWeatherStatusOrAddressTextView.setText(getResources().getString(R.string.no_weather_data));
+            crossFade();
         } else {
-            mWeatherStatusTextView.setText(String.format(getResources().getString(R.string.weather_loading), mLocationAddressSuggestedByGoogleMaps));
             getWeatherDataBasedOnLatLng();
         }
 
@@ -140,13 +143,33 @@ public class MapAndWeatherActivity extends Activity {
     }
 
     private void initializeStatusTextViewAndAddToMainLayout() {
-        mWeatherMainLinearLayout = (LinearLayout) findViewById(R.id.weather_linear_layout);
+        mWeatherLinearLayout = (LinearLayout) findViewById(R.id.weather_linear_layout);
+        mWeatherLayoutProgressBar = (ProgressBar) findViewById(R.id.weather_layout_progress_bar);
+        mWeatherLinearLayout.setVisibility(View.GONE);
+        mWeatherStatusOrAddressTextView = (TextView) findViewById(R.id.status_or_address_text_view);
+    }
 
-        mWeatherStatusTextView = new TextView(this);
-        mWeatherStatusTextView.setTextSize(15);
-        mWeatherStatusTextView.setGravity(Gravity.CENTER);
+    private void crossFade() {
+        mWeatherLinearLayout.setAlpha(0f);
+        mWeatherLinearLayout.setVisibility(View.VISIBLE);
 
-        mWeatherMainLinearLayout.addView(mWeatherStatusTextView);
+        int shortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
+
+        mWeatherLinearLayout.animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration)
+                .setListener(null);
+
+        mWeatherLayoutProgressBar.animate()
+                .alpha(0f)
+                .setDuration(shortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mWeatherLayoutProgressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void getWeatherDataBasedOnLatLng() {
@@ -155,10 +178,6 @@ public class MapAndWeatherActivity extends Activity {
     }
 
     public void setWeatherData(Weather weather) {
-        mWeatherMainLinearLayout.removeAllViews();
-        LinearLayout weatherNewLinearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.weather_layout, null);
-        mWeatherMainLinearLayout.addView(weatherNewLinearLayout);
-
         String latitude = weather.coordinates.mLatitude.toString();
         String longitude = weather.coordinates.mLongitude.toString();
 
@@ -184,8 +203,7 @@ public class MapAndWeatherActivity extends Activity {
         minute = calendar.get(Calendar.MINUTE);
         String sunSet = getResources().getString(R.string.sunset) + ": " + hour + ":" + minute + " ";
 
-        TextView addressTextView = (TextView) findViewById(R.id.address_text_view);
-        addressTextView.setText(mLocationAddressSuggestedByGoogleMaps + " (" + latitude + ", " + longitude + ")");
+        mWeatherStatusOrAddressTextView.setText(mLocationAddressSuggestedByGoogleMaps + " (" + latitude + ", " + longitude + ")");
 
         TextView weatherCenterNameDescriptionWind = (TextView) findViewById(R.id.weather_center_name_description_wind);
         weatherCenterNameDescriptionWind.setText(weatherMain + "\n" + weatherDescription + "\n" + windSpeed);
@@ -199,6 +217,7 @@ public class MapAndWeatherActivity extends Activity {
         TextView sunsetTextView = (TextView) findViewById(R.id.sunset_text_view);
         sunsetTextView.setText(sunSet);
 
+        crossFade();
     }
 
 }

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
@@ -13,6 +14,8 @@ import java.util.Calendar;
  * Created by davidd on 1/16/15.
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    public static final String DATE = "yyyy-mm-dd";
+
     public ProcessDate processDate;
 
     @Override
@@ -23,8 +26,31 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Calendar calendar = Calendar.getInstance();
-        return new DatePickerDialog(getActivity(), this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        int year = 0, month = 0, dayOfMonth = 0;
+
+        String date = getArguments().getString(DATE);
+        if (date == null || date.isEmpty()) {
+            final Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        } else {
+            String[] splitDate = null;
+            try {
+                splitDate = date.split("-");
+                year = Integer.parseInt(splitDate[0]);
+                month = Integer.parseInt(splitDate[1]) - 1;
+                dayOfMonth = Integer.parseInt(splitDate[2]);
+            } catch (Exception e) {
+                Log.e(getClass().getName() + ".onCreateDialog", "Cannot parse the data, so using today's date");
+                final Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+            }
+        }
+
+        return new DatePickerDialog(getActivity(), this, year, month, dayOfMonth);
     }
 
     @Override

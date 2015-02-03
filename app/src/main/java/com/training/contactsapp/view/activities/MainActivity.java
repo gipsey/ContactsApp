@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,6 @@ import com.training.contactsapp.R;
 
 public class MainActivity extends Activity {
     private Handler mStartHandler;
-    private Runnable mRunnable;
 
     private LinearLayout mMainLinearLayout;
 
@@ -53,38 +53,45 @@ public class MainActivity extends Activity {
         mMainLinearLayout.addView(mAppVersionTextView);
 
         mStartHandler = new Handler();
-        mRunnable = new Runnable() {
-            @Override
-            public void run() {
-                startNextActivity();
-            }
-        };
 
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mNameOfApplicationTextView1.setVisibility(View.VISIBLE);
+                mNameOfApplicationTextView1.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left));
             }
-        }, 100);
+        }, 200);
+
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mNameOfApplicationTextView2.setVisibility(View.VISIBLE);
+                mNameOfApplicationTextView2.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left));
             }
-        }, 400);
+        }, 700);
+
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mNameOfApplicationTextView3.setVisibility(View.VISIBLE);
+                mNameOfApplicationTextView3.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left));
             }
-        }, 700);
+        }, 1200);
+
         mStartHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mAppVersionTextView.setVisibility(View.VISIBLE);
+                mAppVersionTextView.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left));
             }
-        }, 1000);
-        mStartHandler.postDelayed(mRunnable, 1500);
+        }, 1700);
+
+        mStartHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startNextActivity();
+            }
+        }, 2000);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

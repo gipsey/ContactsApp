@@ -33,7 +33,7 @@ public class User implements Serializable {
         this.mDob = dob;
         this.mAddress = address;
         this.mWebsite = website;
-        this.mAvatar = avatar; // TODO: probably here is nedd to copy by bytes not the reference, so we'll see
+        this.mAvatar = avatar; // TODO: probably here is need to copy by bytes not the reference, so we'll see
     }
 
     public long getUid() {

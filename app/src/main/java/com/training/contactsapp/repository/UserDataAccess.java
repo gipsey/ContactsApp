@@ -23,6 +23,4 @@ public interface UserDataAccess {
     public long deleteUsers();
 
     public long deleteUserByUid(long id);
-
-    public void insertDefaultUsers();
 }

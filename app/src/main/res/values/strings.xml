@@ -39,8 +39,11 @@
     <string name="save_contact">Save changes</string>
     <string name="cancel_contact">Cancel editing</string>
     <string name="delete_contact">Delete</string>
-    <string name="name_missing">Sorry! Name field is empty.</string>
-    <string name="phone_number_missing">Sorry! Phone number field is empty.</string>
+    <string name="sorry">Sorry!</string>
+    <string name="name_missing_or_invalid">Name field is invalid. Has to be more than 3 and less than 15 characters</string>
+    <string name="phone_number_missing_or_invalid">Phone number is empty or invalid.</string>
+    <string name="email_address_missing_or_invalid"> Email is empty or invalid.</string>
+    <string name="website_address_or_invalid">Website is empty or invalid.</string>
     <string name="contact_updated">Contact %1$s(%2$s) was updated.</string>
     <string name="delete_contact_confirmation">Delete contact</string>
     <string name="delete_contact_confirmation_question">Sure you want to delete %1$s(%2$s)?</string>
@@ -50,17 +53,13 @@
     <string name="title_activity_contact_add">Add a new contact</string>
     <string name="httpPrefixForWebsiteAddress">http://</string>
     <string name="httpsPrefixForWebsiteAddress">https://</string>
-    <string name="name_and_phone_number_missing">Sorry! Name and phone number fields are empty</string>
     <string name="contact_added">Contact %1$s(%2$s) was added</string>
 
     <!-- 6th Screen | Map and weather -->
     <string name="title_activity_map_and_weather">Look up for address</string>
     <string name="more_than_one_address_found">Hm. There was more than one mAddress. We picked up the first.</string>
-    <string name="weather_loading">Weather for location\n%1$s\nis loading...</string>
-    <string name="weather_for_area_loading">Weather for the area is loading...</string>
 
     <!-- Test -->
-    <string name="hello_weather">WEATHER</string>
     <string name="no_weather_data">Sorry!\nThere is no location found.</string>
     <string name="wind_speed">Wind speed</string>
     <string name="temperature">Temperature</string>
