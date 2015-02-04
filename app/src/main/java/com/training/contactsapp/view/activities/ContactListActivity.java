@@ -77,7 +77,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     }
 
     private void searchAndChangeListViewContent(String pattern) {
-        ArrayList<User> newUserSet = new ArrayList<User>();
+        List<User> newUserSet = new ArrayList<User>();
         pattern = pattern.toLowerCase();
 
         for (User user : mUsers) {

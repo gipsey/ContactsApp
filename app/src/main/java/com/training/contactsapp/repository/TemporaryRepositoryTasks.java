@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import com.training.contactsapp.R;
 import com.training.contactsapp.business.ContactsApplication;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.repository.UserDataAccess;
 
 import java.io.ByteArrayOutputStream;
 

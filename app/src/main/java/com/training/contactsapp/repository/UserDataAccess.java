@@ -2,8 +2,6 @@ package com.training.contactsapp.repository;
 
 import com.training.contactsapp.model.User;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

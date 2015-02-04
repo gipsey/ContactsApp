@@ -3,17 +3,12 @@ package com.training.contactsapp.repository.sqLite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.training.contactsapp.R;
-import com.training.contactsapp.business.ContactsApplication;
 import com.training.contactsapp.model.User;
 import com.training.contactsapp.repository.TemporaryRepositoryTasks;
 import com.training.contactsapp.repository.UserDataAccess;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +16,15 @@ import java.util.List;
  * Created by davidd on 1/14/15.
  */
 class SqLiteUserDataAccess implements UserDataAccess {
+    private final String[] ALL_USER_COLUMNS;
     private SqLiteUserDataAccessHelper mSqLiteUserDataAccessHelper;
     private SQLiteDatabase mSqLiteDatabase;
-    private final String[] ALL_USER_COLUMNS = {mSqLiteUserDataAccessHelper.COLUMN_UID, mSqLiteUserDataAccessHelper.COLUMN_NAME,
-            mSqLiteUserDataAccessHelper.COLUMN_PHONE_NUMBER, mSqLiteUserDataAccessHelper.COLUMN_EMAIL,
-            mSqLiteUserDataAccessHelper.COLUMN_DOB, mSqLiteUserDataAccessHelper.COLUMN_ADDRESS,
-            mSqLiteUserDataAccessHelper.COLUMN_WEBSITE, mSqLiteUserDataAccessHelper.COLUMN_AVATAR};
 
     public SqLiteUserDataAccess() {
+        ALL_USER_COLUMNS = new String[]{mSqLiteUserDataAccessHelper.COLUMN_UID, mSqLiteUserDataAccessHelper.COLUMN_NAME,
+                mSqLiteUserDataAccessHelper.COLUMN_PHONE_NUMBER, mSqLiteUserDataAccessHelper.COLUMN_EMAIL,
+                mSqLiteUserDataAccessHelper.COLUMN_DOB, mSqLiteUserDataAccessHelper.COLUMN_ADDRESS,
+                mSqLiteUserDataAccessHelper.COLUMN_WEBSITE, mSqLiteUserDataAccessHelper.COLUMN_AVATAR};
         mSqLiteUserDataAccessHelper = new SqLiteUserDataAccessHelper();
         mSqLiteDatabase = mSqLiteUserDataAccessHelper.getWritableDatabase();
 

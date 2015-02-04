@@ -1,6 +1,7 @@
 package com.training.contactsapp.business;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import com.training.contactsapp.R;
 import com.training.contactsapp.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +37,11 @@ public class UserAdapterForContactList extends ArrayAdapter<User> {
         User user = getItem(position);
         nameTextView.setText(user.getName());
         phoneNumberTextView.setText(user.getPhoneNumber());
-        avatarImageView.setImageBitmap(user.getAvatarAsBitmap());
+        if (user.getAvatar() != null) {
+            avatarImageView.setImageBitmap(user.getAvatarAsBitmap());
+        } else {
+            avatarImageView.setImageBitmap(BitmapFactory.decodeFile(user.getAvatarPath()));
+        }
 
         return convertView;
     }

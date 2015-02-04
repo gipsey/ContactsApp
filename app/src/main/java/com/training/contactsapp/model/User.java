@@ -2,6 +2,7 @@ package com.training.contactsapp.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.io.Serializable;
 /**
  * Created by davidd on 1/14/15.
  */
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
     private static final long serialVersionUid = -7060210544600464481L;
     private long mUid;
     private String mName;
@@ -33,7 +34,7 @@ public class User implements Serializable {
         this.mDob = dob;
         this.mAddress = address;
         this.mWebsite = website;
-        this.mAvatar = avatar; // TODO: probably here is need to copy by bytes not the reference, so we'll see
+        this.mAvatar = avatar;
     }
 
     public long getUid() {
@@ -130,5 +131,15 @@ public class User implements Serializable {
                 ", website='" + mWebsite + '\'' +
                 ", avatar='" + mAvatar + "\'" +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User another) {
+        try {
+            return this.mName.compareToIgnoreCase(another.mName);
+        } catch (NullPointerException e) {
+            Log.w(getClass().getName() + ".compareTo", "NullPointerException");
+            return -1;
+        }
     }
 }

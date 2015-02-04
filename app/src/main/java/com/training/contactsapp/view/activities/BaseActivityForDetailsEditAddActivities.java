@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
@@ -31,7 +30,6 @@ import com.training.contactsapp.repository.UserDataAccess;
 import com.training.contactsapp.view.fragments.DatePickerFragment;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

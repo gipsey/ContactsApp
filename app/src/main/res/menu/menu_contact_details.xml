@@ -1,13 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.training.contactsapp.view.activities.ContactDetailsAndEditActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.training.contactsapp.view.activities.ContactDetailsAndEditActivity">
 
     <item
         android:id="@+id/menu_item_edit_contact"
         android:icon="@drawable/ic_action_edit"
         android:title="@string/edit_contacts"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
 
 </menu>

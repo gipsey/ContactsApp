@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="name_of_application1" type="id" />
-    <item name="name_of_application2" type="id" />
-    <item name="name_of_application3" type="id" />
-    <item name="version_of_application" type="id" />
+    <item name="name_of_application1" type="id"/>
+    <item name="name_of_application2" type="id"/>
+    <item name="name_of_application3" type="id"/>
+    <item name="version_of_application" type="id"/>
 </resources>

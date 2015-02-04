@@ -19,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -204,7 +205,9 @@ public class FileUserDataAccess implements UserDataAccess {
 
     @Override
     public List<User> getUsersUidNamePhoneNumberAvatar() {
-        return getUsers(false);
+        List<User> users = getUsers(false);
+        Collections.sort(users);
+        return users;
     }
 
     @Override

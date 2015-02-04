@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:id="@+id/contacts_details_edit_add_common_layout_id"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -27,17 +28,17 @@
 
             <TextView
                 style="@style/text_view_style_for_labels"
-                android:text="@string/name_text_view" />
+                android:text="@string/name_text_view"/>
 
             <EditText
                 android:id="@+id/edit_text_name_id"
-                style="@style/edit_text_style_to_show_data" />
+                style="@style/edit_text_style_to_show_data"/>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/image_view_avatar"
             android:layout_width="75dp"
-            android:layout_height="75dp" />
+            android:layout_height="75dp"/>
         android:layout_weight="2" />
     </LinearLayout>
 
@@ -45,7 +46,7 @@
     <!--Phone number-->
     <TextView
         style="@style/text_view_style_for_labels"
-        android:text="@string/phone_number_text_view" />
+        android:text="@string/phone_number_text_view"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,21 +59,21 @@
             style="@style/edit_text_style_to_show_data"
             android:layout_width="0dp"
             android:layout_weight="8"
-            android:inputType="phone" />
+            android:inputType="phone"/>
 
         <Button
             android:id="@+id/button_call"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/button_call_text" />
+            android:text="@string/button_call_text"/>
     </LinearLayout>
 
 
     <!--Email-->
     <TextView
         style="@style/text_view_style_for_labels"
-        android:text="@string/text_view_email" />
+        android:text="@string/text_view_email"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,21 +85,21 @@
             android:id="@+id/edit_text_email_id"
             style="@style/edit_text_style_to_show_data"
             android:layout_width="0dp"
-            android:layout_weight="8" />
+            android:layout_weight="8"/>
 
         <Button
             android:id="@+id/button_send"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/button_send_text" />
+            android:text="@string/button_send_text"/>
     </LinearLayout>
 
 
     <!--Dob-->
     <TextView
         style="@style/text_view_style_for_labels"
-        android:text="@string/text_view_dob" />
+        android:text="@string/text_view_dob"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -107,14 +108,14 @@
 
         <EditText
             android:id="@+id/edit_text_dob_id"
-            style="@style/edit_text_style_to_show_data" />
+            style="@style/edit_text_style_to_show_data"/>
     </RelativeLayout>
 
 
     <!--Address-->
     <TextView
         style="@style/text_view_style_for_labels"
-        android:text="@string/text_view_address" />
+        android:text="@string/text_view_address"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,21 +127,21 @@
             android:id="@+id/edit_text_address_id"
             style="@style/edit_text_style_to_show_data"
             android:layout_width="0dp"
-            android:layout_weight="8" />
+            android:layout_weight="8"/>
 
         <Button
             android:id="@+id/button_look"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/button_look_text" />
+            android:text="@string/button_look_text"/>
     </LinearLayout>
 
 
     <!--Website-->
     <TextView
         style="@style/text_view_style_for_labels"
-        android:text="@string/text_view_website" />
+        android:text="@string/text_view_website"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -152,14 +153,14 @@
             android:id="@+id/edit_text_website_id"
             style="@style/edit_text_style_to_show_data"
             android:layout_width="0dp"
-            android:layout_weight="8" />
+            android:layout_weight="8"/>
 
         <Button
             android:id="@+id/button_visit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/button_visit_text" />
+            android:text="@string/button_visit_text"/>
     </LinearLayout>
 
     <!--Meeting-->
@@ -168,6 +169,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="@string/button_plan_meeting_text" />
+        android:text="@string/button_plan_meeting_text"/>
 
 </LinearLayout>
