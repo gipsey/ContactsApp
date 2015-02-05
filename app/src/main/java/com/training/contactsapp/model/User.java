@@ -11,6 +11,7 @@ import java.io.Serializable;
  * Created by davidd on 1/14/15.
  */
 public class User implements Serializable, Comparable<User> {
+    // review: documenting
     private static final long serialVersionUid = -7060210544600464481L;
     private long mUid;
     private String mName;

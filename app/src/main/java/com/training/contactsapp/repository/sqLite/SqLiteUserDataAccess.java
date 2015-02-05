@@ -21,6 +21,7 @@ class SqLiteUserDataAccess implements UserDataAccess {
     private SQLiteDatabase mSqLiteDatabase;
 
     public SqLiteUserDataAccess() {
+        // review: constanta statica
         ALL_USER_COLUMNS = new String[]{mSqLiteUserDataAccessHelper.COLUMN_UID, mSqLiteUserDataAccessHelper.COLUMN_NAME,
                 mSqLiteUserDataAccessHelper.COLUMN_PHONE_NUMBER, mSqLiteUserDataAccessHelper.COLUMN_EMAIL,
                 mSqLiteUserDataAccessHelper.COLUMN_DOB, mSqLiteUserDataAccessHelper.COLUMN_ADDRESS,
@@ -146,9 +147,9 @@ class SqLiteUserDataAccess implements UserDataAccess {
         return mSqLiteDatabase.delete(SqLiteUserDataAccessHelper.TABLE_NAME, null, null);
     }
 
+    // review:
     public long deleteUserByUid(long id) {
-        return mSqLiteDatabase.delete(mSqLiteUserDataAccessHelper.TABLE_NAME, mSqLiteUserDataAccessHelper.COLUMN_UID + "=" +
-                id, null);
+        return mSqLiteDatabase.delete(mSqLiteUserDataAccessHelper.TABLE_NAME, mSqLiteUserDataAccessHelper.COLUMN_UID + "=" + id, null);
     }
 
 }

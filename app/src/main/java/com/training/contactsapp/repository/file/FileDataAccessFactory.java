@@ -7,16 +7,14 @@ import com.training.contactsapp.repository.UserDataAccess;
  * Created by davidd on 1/29/15.
  */
 public class FileDataAccessFactory extends DataAccessFactory {
+    //review: sInstance
     private static volatile UserDataAccess sUserDataAccessInstance = null;
 
     @Override
+    //review: getUserDAO
     public UserDataAccess getUserDataAccess() {
         if (sUserDataAccessInstance == null) {
-            synchronized (FileDataAccessFactory.class) {
-                if (sUserDataAccessInstance == null) {
-                    sUserDataAccessInstance = new FileUserDataAccess();
-                }
-            }
+            sUserDataAccessInstance = new FileUserDataAccess();
         }
         return sUserDataAccessInstance;
     }
