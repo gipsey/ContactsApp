@@ -1,6 +1,5 @@
 package com.training.contactsapp.repository;
 
-import com.training.contactsapp.repository.file.FileDataAccessFactory;
 import com.training.contactsapp.repository.sqLite.SqLiteDataAccessFactory;
 
 /**

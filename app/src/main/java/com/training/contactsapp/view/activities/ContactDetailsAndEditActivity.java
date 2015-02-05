@@ -10,17 +10,15 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.repository.DataAccessFactory;
 
-public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAddActivities implements View.OnClickListener {
+import butterknife.OnClick;
+
+public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAddActivities {
     public static final String USER_TAG = "USER";
     protected final static String REMOVE_STATUS = "REMOVE_STATUS";
 
@@ -36,13 +34,6 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mCommonLinearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.contacts_details_edit_add_common_layout, null);
-
-        ScrollView contactAddMainLinearLayout = (ScrollView) findViewById(R.id.contact_details_edit_add_main_scroll_view);
-        contactAddMainLinearLayout.addView(mCommonLinearLayout);
-
-        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
 
         mUser = (User) getIntent().getExtras().getSerializable(USER_TAG);
 
@@ -63,24 +54,19 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
 
         mPhoneNumberEditText.setText(mUser.getPhoneNumber());
         mCallButton = (Button) findViewById(R.id.button_call);
-        mCallButton.setOnClickListener(this);
 
         mEmailEditText.setText(mUser.getEmail());
         mSendButton = (Button) findViewById(R.id.button_send);
-        mSendButton.setOnClickListener(this);
 
         mDobEditText.setText(mUser.getDob());
 
         mAddressEditText.setText(mUser.getAddress());
         mLookButton = (Button) findViewById(R.id.button_look);
-        mLookButton.setOnClickListener(this);
 
         mWebsiteEditText.setText(mUser.getWebsite());
         mVisitButton = (Button) findViewById(R.id.button_visit);
-        mVisitButton.setOnClickListener(this);
 
         mPlanningButton = (Button) findViewById(R.id.button_plan);
-        mPlanningButton.setOnClickListener(this);
 
         setPrimaryBackground();
         setEditTextState(false);
@@ -258,45 +244,56 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
         mDobEditText.setText(date);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == mCallButton.getId()) {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            Uri phoneNumberUri = Uri.parse("tel:" + mUser.getPhoneNumber());
-            intent.setData(phoneNumberUri);
+    @OnClick(R.id.button_call)
+    protected void onCallButtonClick() {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri phoneNumberUri = Uri.parse("tel:" + mUser.getPhoneNumber());
+        intent.setData(phoneNumberUri);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.button_send)
+    protected void onSendButtonClick() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mUser.getEmail()});
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.button_look)
+    protected void onLookButtonClick() {
+        if (mUser.getAddress() == null || mUser.getAddress().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.address_is_empty), Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(this, MapAndWeatherActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, mUser.getAddress());
             startActivity(intent);
-        } else if (v.getId() == mSendButton.getId()) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("plain/text");
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mUser.getEmail()});
+        }
+    }
+
+    @OnClick(R.id.button_visit)
+    protected void onVisitButtonClick() {
+        String websiteValue = mUser.getWebsite();
+        if (!websiteValue.startsWith(getResources().getString(R.string.httpPrefixForWebsiteAddress)) && !websiteValue.startsWith(getResources().getString(R.string.httpsPrefixForWebsiteAddress))) {
+            websiteValue = getResources().getString(R.string.httpPrefixForWebsiteAddress) + websiteValue;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(websiteValue));
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.button_plan)
+    protected void onPlanButtonClick() {
+        String titleDescription = String.format(getResources().getString(R.string.meeting_planning_title), mUser.getName());
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setData(CalendarContract.Events.CONTENT_URI);
+        intent.putExtra(CalendarContract.Events.TITLE, titleDescription);
+        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, titleDescription);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-        } else if (v.getId() == mLookButton.getId()) {
-            if (mUser.getAddress() == null || mUser.getAddress().isEmpty()) {
-                Toast.makeText(this, getResources().getString(R.string.address_is_empty), Toast.LENGTH_LONG).show();
-            } else {
-                Intent intent = new Intent(this, MapAndWeatherActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, mUser.getAddress());
-                startActivity(intent);
-            }
-        } else if (v.getId() == mVisitButton.getId()) {
-            String websiteValue = mUser.getWebsite();
-            if (!websiteValue.startsWith(getResources().getString(R.string.httpPrefixForWebsiteAddress)) && !websiteValue.startsWith(getResources().getString(R.string.httpsPrefixForWebsiteAddress))) {
-                websiteValue = getResources().getString(R.string.httpPrefixForWebsiteAddress) + websiteValue;
-            }
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(websiteValue));
-            startActivity(intent);
-        } else if (v.getId() == mPlanningButton.getId()) {
-            String titleDescription = String.format(getResources().getString(R.string.meeting_planning_title), mUser.getName());
-            Intent intent = new Intent(Intent.ACTION_INSERT);
-            intent.setData(CalendarContract.Events.CONTENT_URI);
-            intent.putExtra(CalendarContract.Events.TITLE, titleDescription);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, titleDescription);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, getResources().getString(R.string.cannot_create_meeting), Toast.LENGTH_LONG).show();
-            }
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.cannot_create_meeting), Toast.LENGTH_LONG).show();
         }
     }
 

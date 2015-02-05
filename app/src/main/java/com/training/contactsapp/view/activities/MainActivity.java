@@ -19,7 +19,6 @@ public class MainActivity extends Activity {
     private Handler mStartHandler;
 
     private LinearLayout mMainLinearLayout;
-
     private TextView mNameOfApplicationTextView1;
     private TextView mNameOfApplicationTextView2;
     private TextView mNameOfApplicationTextView3;

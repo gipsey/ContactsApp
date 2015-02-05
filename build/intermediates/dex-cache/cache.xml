@@ -37,6 +37,13 @@
         <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/classes-c905c2ac26c122872d4730b26ba483217ddb27f1.jar" />
     </item>
     <item
+        jar="/Users/davidd/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/6.1.0/63735f48b82bcd24cdd33821342428252eb1ca5a/butterknife-6.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
+        <dex dex="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/pre-dexed/debug/butterknife-6.1.0-93b3bcca467bea69902011dd8ebbb5a454f68847.jar" />
+    </item>
+    <item
         jar="/Users/davidd/AndroidStudioProjects/ContactsApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"

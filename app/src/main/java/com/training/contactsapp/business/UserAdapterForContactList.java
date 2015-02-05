@@ -25,24 +25,39 @@ public class UserAdapterForContactList extends ArrayAdapter<User> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_user, parent,
+            convertView = LayoutInflater.from(
+                    getContext()).inflate(R.layout.item_user,
+                    parent,
                     false);
+            viewHolder = new ViewHolder();
+            viewHolder.nameTextView = (TextView) convertView.findViewById(R.id.name_text_view);
+            viewHolder.phoneNumberTextView = (TextView) convertView.findViewById(R.id.phone_number_text_view);
+            viewHolder.avatarImageView = (ImageView) convertView.findViewById(R.id.image_view_avatar);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView nameTextView = (TextView) convertView.findViewById(R.id.name_text_view);
-        TextView phoneNumberTextView = (TextView) convertView.findViewById(R.id.phone_number_text_view);
-        ImageView avatarImageView = (ImageView) convertView.findViewById(R.id.image_view_avatar);
-
         User user = getItem(position);
-        nameTextView.setText(user.getName());
-        phoneNumberTextView.setText(user.getPhoneNumber());
+        viewHolder.nameTextView.setText(user.getName());
+        viewHolder.phoneNumberTextView.setText(user.getPhoneNumber());
         if (user.getAvatar() != null) {
-            avatarImageView.setImageBitmap(user.getAvatarAsBitmap());
+            viewHolder.avatarImageView.setImageBitmap(user.getAvatarAsBitmap());
         } else {
-            avatarImageView.setImageBitmap(BitmapFactory.decodeFile(user.getAvatarPath()));
+            viewHolder.avatarImageView.setImageBitmap(BitmapFactory.decodeFile(user.getAvatarPath()));
         }
 
         return convertView;
     }
+
+    private static class ViewHolder {
+        public TextView nameTextView;
+        public TextView phoneNumberTextView;
+        public ImageView avatarImageView;
+    }
+
 }

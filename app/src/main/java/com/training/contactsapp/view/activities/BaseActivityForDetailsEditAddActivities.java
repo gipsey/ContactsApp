@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kbeanie.imagechooser.api.ChooserType;
@@ -26,12 +25,17 @@ import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 import com.training.contactsapp.R;
+import com.training.contactsapp.repository.DataAccessFactory;
 import com.training.contactsapp.repository.UserDataAccess;
 import com.training.contactsapp.view.fragments.DatePickerFragment;
 
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by davidd on 2/2/15.
@@ -41,22 +45,26 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     protected static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$");
     protected static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[A-Za-z]+[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
     protected static final Pattern WEBSITE_ADDRESS_PATTERN = Pattern.compile("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$");
-
     protected static final int REQUEST_CODE_CROP_PICTURE = 2;
-
     protected UserDataAccess mUserDataAccess;
 
-    protected LinearLayout mCommonLinearLayout;
+    @InjectView(R.id.edit_text_name_id)
     protected EditText mNameEditText;
+    @InjectView(R.id.image_view_avatar)
     protected ImageView mAvatarImageView;
+    @InjectView(R.id.edit_text_phone_number_id)
     protected EditText mPhoneNumberEditText;
+    @InjectView(R.id.edit_text_email_id)
     protected EditText mEmailEditText;
+    @InjectView(R.id.edit_text_dob_id)
     protected EditText mDobEditText;
+    @InjectView(R.id.edit_text_address_id)
     protected EditText mAddressEditText;
+    @InjectView(R.id.edit_text_website_id)
     protected EditText mWebsiteEditText;
+
     protected DatePickerFragment mDatePickerFragment;
     protected Drawable mEditTextDrawable;
-
     protected ImageChooserManager mImageChooserManager;
     private String mImageChooserDirectory;
 
@@ -64,6 +72,10 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_details_and_edit_and_add);
+
+        ButterKnife.inject(this);
+
+        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
     }
 
     @Override
@@ -132,41 +144,13 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     }
 
     protected void createUi() {
-        mNameEditText = (EditText) findViewById(R.id.edit_text_name_id);
         mEditTextDrawable = mNameEditText.getBackground();
-        mAvatarImageView = (ImageView) findViewById(R.id.image_view_avatar);
-        mAvatarImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendPictureSelectIntent();
-            }
-        });
 
-        mPhoneNumberEditText = (EditText) findViewById(R.id.edit_text_phone_number_id);
-
-        mEmailEditText = (EditText) findViewById(R.id.edit_text_email_id);
         mEmailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
-        mDobEditText = (EditText) findViewById(R.id.edit_text_dob_id);
         mDobEditText.setFocusable(false);
 
         mDatePickerFragment = new DatePickerFragment();
-
-        mDobEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mDatePickerFragment.isAdded()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(DatePickerFragment.DATE, mDobEditText.getText().toString());
-                    mDatePickerFragment.setArguments(bundle);
-                    mDatePickerFragment.show(getSupportFragmentManager(), "DATE_PICKER");
-                }
-            }
-        });
-
-        mAddressEditText = (EditText) findViewById(R.id.edit_text_address_id);
-
-        mWebsiteEditText = (EditText) findViewById(R.id.edit_text_website_id);
     }
 
     @Override
@@ -217,6 +201,21 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.image_view_avatar)
+    public void onImageViewClick(View v) {
+        sendPictureSelectIntent();
+    }
+
+    @OnClick(R.id.edit_text_dob_id)
+    public void onEditTextClick(View view) {
+        if (!mDatePickerFragment.isAdded()) {
+            Bundle bundle = new Bundle();
+            bundle.putString(DatePickerFragment.DATE, mDobEditText.getText().toString());
+            mDatePickerFragment.setArguments(bundle);
+            mDatePickerFragment.show(getSupportFragmentManager(), "DATE_PICKER");
+        }
     }
 
     @Override

@@ -9,14 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
 import com.training.contactsapp.business.ContactsApplication;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.repository.DataAccessFactory;
 
 public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities {
 
@@ -24,12 +21,6 @@ public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCommonLinearLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.contacts_details_edit_add_common_layout, null);
-
-        ScrollView contactAddMainLinearLayout = (ScrollView) findViewById(R.id.contact_details_edit_add_main_scroll_view);
-        contactAddMainLinearLayout.addView(mCommonLinearLayout);
-
-        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
         createUi();
     }
 

@@ -22,7 +22,7 @@ import com.training.contactsapp.repository.UserDataAccess;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactListActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
+public class ContactListActivity extends ActionBarActivity {
     public final static String ADD_STATUS = "ADD_STATUS";
 
     private UserDataAccess mUserDataAccess;
@@ -99,7 +99,19 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         MenuItem searchItem = menu.findItem(R.id.search_view);
         mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         mSearchView.setQueryHint(getResources().getString(R.string.search_hint));
-        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchAndChangeListViewContent(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchAndChangeListViewContent(s);
+                return false;
+            }
+        });
 
         return true;
     }
@@ -115,18 +127,6 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        searchAndChangeListViewContent(s);
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        searchAndChangeListViewContent(s);
-        return false;
     }
 
 }
