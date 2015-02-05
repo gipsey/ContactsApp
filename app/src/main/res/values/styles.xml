@@ -9,8 +9,6 @@
         <!--button style-->
         <item name="android:buttonStyle">@style/CustomButtonStyle</item>
 
-        <!--textview style-->
-        <!--<item name="android:textViewStyle">@style/CustomTextViewStyle</item>-->
     </style>
 
     <!--Action Bar customization-->
@@ -26,7 +24,6 @@
     <style name="ActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/special_white</item>
     </style>
-
 
     <!--Button customization-->
     <style name="CustomButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
@@ -58,6 +55,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20dp</item>
     </style>
-
 
 </resources>

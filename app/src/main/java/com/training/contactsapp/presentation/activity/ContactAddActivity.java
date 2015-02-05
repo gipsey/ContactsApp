@@ -1,4 +1,4 @@
-package com.training.contactsapp.view.activities;
+package com.training.contactsapp.presentation.activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.business.ContactsApplication;
 import com.training.contactsapp.model.User;
+import com.training.contactsapp.utils.ContactsApplication;
 
 public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities {
 
@@ -37,11 +36,11 @@ public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities 
     }
 
     private void setButtonsVisibility(int visibility) {
-        ((Button) findViewById(R.id.button_call)).setVisibility(visibility);
-        ((Button) findViewById(R.id.button_send)).setVisibility(visibility);
-        ((Button) findViewById(R.id.button_look)).setVisibility(visibility);
-        ((Button) findViewById(R.id.button_visit)).setVisibility(visibility);
-        ((Button) findViewById(R.id.button_plan)).setVisibility(visibility);
+        findViewById(R.id.button_call).setVisibility(visibility);
+        findViewById(R.id.button_send).setVisibility(visibility);
+        findViewById(R.id.button_look).setVisibility(visibility);
+        findViewById(R.id.button_visit).setVisibility(visibility);
+        findViewById(R.id.button_plan).setVisibility(visibility);
     }
 
     private void setAvatarImageViewBackground() {
@@ -71,7 +70,7 @@ public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities 
                             mDobEditText.getText().toString(), mAddressEditText.getText().toString(), mWebsiteEditText.getText().toString(), null);
                     newUser.setAvatarAsBitmap(((BitmapDrawable) mAvatarImageView.getDrawable()).getBitmap());
 
-                    mUserDataAccess.insertUser(newUser);
+                    mUserDAO.insertUser(newUser);
 
                     Intent saveIntent = new Intent(this, ContactListActivity.class);
                     saveIntent.putExtra(ContactListActivity.ADD_STATUS, String.format(getResources().getString(R.string.contact_added), mNameEditText.getText().toString(), mPhoneNumberEditText.getText().toString()));

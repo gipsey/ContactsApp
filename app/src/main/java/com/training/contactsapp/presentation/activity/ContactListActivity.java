@@ -1,4 +1,4 @@
-package com.training.contactsapp.view.activities;
+package com.training.contactsapp.presentation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,28 +14,29 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.training.contactsapp.R;
-import com.training.contactsapp.business.UserAdapterForContactList;
+import com.training.contactsapp.access.AbstractDAOFactory;
+import com.training.contactsapp.access.UserDAO;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.repository.DataAccessFactory;
-import com.training.contactsapp.repository.UserDataAccess;
+import com.training.contactsapp.presentation.adapter.UserContactListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactListActivity extends ActionBarActivity {
     public final static String ADD_STATUS = "ADD_STATUS";
-
-    private UserDataAccess mUserDataAccess;
-    private SearchView mSearchView;
+    private UserDAO mUserDAO;
     private ListView mMainListView;
+    private List<User> mOriginalUsers;
     private List<User> mUsers;
+    private UserContactListAdapter mUserContactListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
+        mUserDAO = AbstractDAOFactory.getInstance().getUserDataAccess();
+        mOriginalUsers = mUserDAO.getUsersUidNamePhoneNumberAvatar();
 
         Intent intent = getIntent();
         String removeStatus = intent.getStringExtra(ContactDetailsAndEditActivity.REMOVE_STATUS);
@@ -54,22 +55,25 @@ public class ContactListActivity extends ActionBarActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        mMainListView.setAdapter(new UserAdapterForContactList(this, mUserDataAccess.getUsersUidNamePhoneNumberAvatar()));
+        mMainListView.setAdapter(new UserContactListAdapter(this, mUserDAO.getUsersUidNamePhoneNumberAvatar()));
     }
 
     private void createListView() {
-        mUsers = mUserDataAccess.getUsersUidNamePhoneNumberAvatar();
+        mUsers = new ArrayList<User>();
+        for (User u : mOriginalUsers) {
+            mUsers.add(u);
+        }
 
-        UserAdapterForContactList userAdapterForContactList = new UserAdapterForContactList(this, mUsers);
+        mUserContactListAdapter = new UserContactListAdapter(this, mUsers);
         mMainListView = (ListView) findViewById(R.id.list_view);
-        mMainListView.setAdapter(userAdapterForContactList);
+        mMainListView.setAdapter(mUserContactListAdapter);
         mMainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ContactListActivity.this, ContactDetailsAndEditActivity.class);
                 Bundle bundle = new Bundle();
                 User user = (User) parent.getItemAtPosition(position);
-                bundle.putSerializable(ContactDetailsAndEditActivity.USER_TAG, mUserDataAccess.getUserByUid(user.getUid()));
+                bundle.putSerializable(ContactDetailsAndEditActivity.USER_TAG, mUserDAO.getUserByUid(user.getUid()));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -77,18 +81,18 @@ public class ContactListActivity extends ActionBarActivity {
     }
 
     private void searchAndChangeListViewContent(String pattern) {
-        List<User> newUserSet = new ArrayList<User>();
         pattern = pattern.toLowerCase();
 
-        for (User user : mUsers) {
+        mUsers.clear();
+        for (User user : mOriginalUsers) {
             if (user.getName().toLowerCase().startsWith(pattern) || user.getPhoneNumber().toLowerCase().startsWith(pattern)) {
-                newUserSet.add(user);
+                mUsers.add(user);
             }
         }
-        if (newUserSet.isEmpty()) {
-            newUserSet.add(new User(0, getResources().getString(R.string.no_result_for_search), null, null, null, null, null, null));
+        if (mUsers.isEmpty()) {
+            mUsers.add(new User(0, getResources().getString(R.string.no_result_for_search), null, null, null, null, null, null));
         }
-        mMainListView.setAdapter(new UserAdapterForContactList(this, newUserSet));
+        mUserContactListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,9 +101,9 @@ public class ContactListActivity extends ActionBarActivity {
         menuInflater.inflate(R.menu.menu_contact_list, menu);
 
         MenuItem searchItem = menu.findItem(R.id.search_view);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        mSearchView.setQueryHint(getResources().getString(R.string.search_hint));
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 searchAndChangeListViewContent(s);

@@ -1,4 +1,4 @@
-package com.training.contactsapp.business;
+package com.training.contactsapp.presentation.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -14,12 +14,9 @@ import com.training.contactsapp.model.User;
 
 import java.util.List;
 
-/**
- * Created by davidd on 1/14/15.
- */
-public class UserAdapterForContactList extends ArrayAdapter<User> {
+public class UserContactListAdapter extends ArrayAdapter<User> {
 
-    public UserAdapterForContactList(Context context, List<User> users) {
+    public UserContactListAdapter(Context context, List<User> users) {
         super(context, 0, users);
     }
 

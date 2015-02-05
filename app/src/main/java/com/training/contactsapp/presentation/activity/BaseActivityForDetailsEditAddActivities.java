@@ -1,17 +1,14 @@
-package com.training.contactsapp.view.activities;
+package com.training.contactsapp.presentation.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +22,9 @@ import com.kbeanie.imagechooser.api.ChosenImage;
 import com.kbeanie.imagechooser.api.ImageChooserListener;
 import com.kbeanie.imagechooser.api.ImageChooserManager;
 import com.training.contactsapp.R;
-import com.training.contactsapp.repository.DataAccessFactory;
-import com.training.contactsapp.repository.UserDataAccess;
-import com.training.contactsapp.view.fragments.DatePickerFragment;
+import com.training.contactsapp.access.AbstractDAOFactory;
+import com.training.contactsapp.access.UserDAO;
+import com.training.contactsapp.presentation.fragment.DatePickerFragment;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -37,16 +34,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-/**
- * Created by davidd on 2/2/15.
- */
 public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarActivity implements DatePickerFragment.ProcessDate, ImageChooserListener {
-    protected static final Pattern NAME_PATTERN = Pattern.compile("^.{3,15}$");
-    protected static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$");
-    protected static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[A-Za-z]+[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
-    protected static final Pattern WEBSITE_ADDRESS_PATTERN = Pattern.compile("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$");
-    protected static final int REQUEST_CODE_CROP_PICTURE = 2;
-    protected UserDataAccess mUserDataAccess;
+    private static final Pattern NAME_PATTERN = Pattern.compile("^.{3,15}$");
+    private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$");
+    private static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[A-Za-z]+[A-Za-z0-9._%+-]*@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
+    private static final Pattern WEBSITE_ADDRESS_PATTERN = Pattern.compile("^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$");
+    private static final int REQUEST_CODE_CROP_PICTURE = 2;
+    protected UserDAO mUserDAO;
 
     @InjectView(R.id.edit_text_name_id)
     protected EditText mNameEditText;
@@ -75,7 +69,7 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
 
         ButterKnife.inject(this);
 
-        mUserDataAccess = DataAccessFactory.getInstance().getUserDataAccess();
+        mUserDAO = AbstractDAOFactory.getInstance().getUserDataAccess();
     }
 
     @Override
@@ -103,17 +97,6 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
                 Toast.makeText(this, R.string.cannot_crop_image, Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    protected Bitmap pictureSelected(Intent data) {
-        Uri selectedImage = data.getData();
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return BitmapFactory.decodeFile(filePath);
     }
 
     protected void sendPictureSelectIntent() {
@@ -146,7 +129,7 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     protected void createUi() {
         mEditTextDrawable = mNameEditText.getBackground();
 
-        mEmailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+//        mEmailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS); // TODO: remove
 
         mDobEditText.setFocusable(false);
 
@@ -178,24 +161,23 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
     }
 
     protected boolean isFieldContentValid(EditText editText, Pattern pattern) {
-        if (!isStringMatchesThePatternCorrect(editText.getText().toString(), pattern)) {
-            editText.setBackgroundColor(getResources().getColor(R.color.error_color));
-            return false;
-        } else {
+        if (isStringMatchesThePatternCorrect(editText.getText().toString(), pattern)) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                 editText.setBackgroundDrawable(mEditTextDrawable);
             } else {
                 editText.setBackground(mEditTextDrawable);
             }
             return true;
+        } else {
+            editText.setBackgroundColor(getResources().getColor(R.color.error_color));
+            return false;
         }
     }
 
     protected boolean isStringMatchesThePatternCorrect(String string, Pattern pattern) {
         if (string.isEmpty()) return false;
         Matcher matcher = pattern.matcher(string);
-        if (matcher.matches()) return true;
-        return false;
+        return matcher.matches();
     }
 
     @Override

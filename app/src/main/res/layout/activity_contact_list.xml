@@ -6,7 +6,7 @@
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:paddingTop="0dp"
-                tools:context="com.training.contactsapp.view.activities.ContactListActivity">
+                tools:context="com.training.contactsapp.presentation.activity.ContactListActivity">
 
     <ListView
         android:id="@+id/list_view"

@@ -1,13 +1,10 @@
-package com.training.contactsapp.repository;
+package com.training.contactsapp.access;
 
 import com.training.contactsapp.model.User;
 
 import java.util.List;
 
-/**
- * Created by davidd on 1/29/15.
- */
-public interface UserDataAccess {
+public interface UserDAO {
     public List<User> getUsers();
 
     public User getUserByUid(long uid);

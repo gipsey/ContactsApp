@@ -1,4 +1,4 @@
-package com.training.contactsapp.view.activities;
+package com.training.contactsapp.presentation.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,7 +20,7 @@ import butterknife.OnClick;
 
 public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAddActivities {
     public static final String USER_TAG = "USER";
-    protected final static String REMOVE_STATUS = "REMOVE_STATUS";
+    final static String REMOVE_STATUS = "REMOVE_STATUS";
 
     private User mUser;
     private Menu mMenu;
@@ -143,7 +143,7 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
         }
     }
 
-    public void setButtonState(boolean buttonState) {
+    void setButtonState(boolean buttonState) {
         mCallButton.setEnabled(buttonState);
         mSendButton.setEnabled(buttonState);
         mLookButton.setEnabled(buttonState);
@@ -200,7 +200,7 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
                     mUser.setWebsite(mWebsiteEditText.getText().toString());
                     mUser.setAvatarAsBitmap(((BitmapDrawable) mAvatarImageView.getDrawable()).getBitmap());
 
-                    mUserDataAccess.updateUser(mUser);
+                    mUserDAO.updateUser(mUser);
                     Toast.makeText(this, String.format(getResources().getString(R.string.contact_updated), mNameEditText.getText().toString(), mPhoneNumberEditText.getText().toString()), Toast.LENGTH_LONG).show();
                     changeUiToDetails();
                 } else {
@@ -221,7 +221,7 @@ public class ContactDetailsAndEditActivity extends BaseActivityForDetailsEditAdd
                 deleteAlertDialog.setCancelable(true);
                 deleteAlertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        mUserDataAccess.deleteUserByUid(mUser.getUid());
+                        mUserDAO.deleteUserByUid(mUser.getUid());
                         Intent deleteIntent = new Intent(ContactDetailsAndEditActivity.this, ContactListActivity.class);
                         deleteIntent.putExtra(REMOVE_STATUS, String.format(getResources().getString(R.string.contact_was_removed), mUser.getName(), mUser.getPhoneNumber()));
                         startActivity(deleteIntent);

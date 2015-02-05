@@ -1,19 +1,16 @@
-package com.training.contactsapp.repository.sqLite;
+package com.training.contactsapp.access.sqLite;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.training.contactsapp.business.ContactsApplication;
+import com.training.contactsapp.utils.ContactsApplication;
 
 /**
  * Created by davidd on 1/14/15.
  */
-class SqLiteUserDataAccessHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "user.db";
-    public static final int DATABASE_VERSION = 2;
-
+class SqLiteUserDAOHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "User";
-    public static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS " + TABLE_NAME;
+    private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS " + TABLE_NAME;
     public static final String COLUMN_UID = "uid";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PHONE_NUMBER = "phone_number";
@@ -32,8 +29,10 @@ class SqLiteUserDataAccessHelper extends SQLiteOpenHelper {
             COLUMN_WEBSITE + " TEXT, " +
             COLUMN_AVATAR + " BLOB" +
             ")";
+    private static final String DATABASE_NAME = "user.db";
+    private static final int DATABASE_VERSION = 2;
 
-    public SqLiteUserDataAccessHelper() {
+    public SqLiteUserDAOHelper() {
         super(ContactsApplication.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 

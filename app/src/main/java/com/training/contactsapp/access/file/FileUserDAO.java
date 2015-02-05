@@ -1,14 +1,14 @@
-package com.training.contactsapp.repository.file;
+package com.training.contactsapp.access.file;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
-import com.training.contactsapp.business.ContactsApplication;
+import com.training.contactsapp.access.MockDataManager;
+import com.training.contactsapp.access.UserDAO;
 import com.training.contactsapp.model.User;
-import com.training.contactsapp.repository.TemporaryRepositoryTasks;
-import com.training.contactsapp.repository.UserDataAccess;
+import com.training.contactsapp.utils.ContactsApplication;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,10 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by davidd on 1/29/15.
- */
-public class FileUserDataAccess implements UserDataAccess {
+public class FileUserDAO implements UserDAO {
     public static final int ERROR_RETURN_CODE = -1;
     public static final int SUCCESS_RETURN_CODE = 0;
     private static final String DIR_NAME = "users";
@@ -34,15 +31,16 @@ public class FileUserDataAccess implements UserDataAccess {
     private static final String IMAGE_FILE_EXTENSION = ".png";
     private static final String NEW_LINE = "\n";
     private static final int USER_BEAN_COLUMNS_COUNT = 8;
+    private static volatile FileUserDAO sInstance;
     private static File sDirectory;
     private static File sFile;
 
-    public FileUserDataAccess() {
+    private FileUserDAO() {
         if (isExternalStorageWritableAndWritable()) {
             createDirectoryAndFileObjects();
             if (!sFile.exists()) {
                 Log.i(getClass().getName(), "Default users will be inserted, because the file doesn't exist.");
-                TemporaryRepositoryTasks.insertDefaultUsers(this);
+                MockDataManager.insertDefaultUsers(this);
             }
         } else {
             Log.e(getClass().getName(), "External storage is not writable");
@@ -50,12 +48,16 @@ public class FileUserDataAccess implements UserDataAccess {
         }
     }
 
+    synchronized public static UserDAO getInstance() {
+        if (sInstance == null) {
+            sInstance = new FileUserDAO();
+        }
+        return sInstance;
+    }
+
     public boolean isExternalStorageWritableAndWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     private void createDirectoryAndFileObjects() {
@@ -65,7 +67,7 @@ public class FileUserDataAccess implements UserDataAccess {
             if (sDirectory.mkdirs()) {
                 Log.i(getClass().getName(), sDirectory + "creation is successful");
             } else {
-                Log.e(getClass().getName(), sDirectory + " creation returned false, in this case an error occured");
+                Log.e(getClass().getName(), sDirectory + " creation returned false, in this case an error occurred");
                 // TODO: throw new exception
             }
         }
@@ -75,10 +77,7 @@ public class FileUserDataAccess implements UserDataAccess {
     private boolean isFileEmpty(File file) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            if (bufferedReader.readLine() == null) {
-                return true;
-            }
-            return false;
+            return bufferedReader.readLine() == null;
         } catch (IOException e) {
             Log.e(getClass().getName(), "Cannot decide that " + file.getName() + " is empty or not");
             e.printStackTrace();
@@ -306,5 +305,4 @@ public class FileUserDataAccess implements UserDataAccess {
 
         return SUCCESS_RETURN_CODE;
     }
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.training.contactsapp.view.activities.BaseActivityForDetailsEditAddActivities">
+    tools:context="com.training.contactsapp.presentation.activity.BaseActivityForDetailsEditAddActivities">
 
     <LinearLayout
         android:id="@+id/contacts_details_edit_add_common_layout_id"
@@ -29,7 +29,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -45,7 +45,6 @@
                 android:id="@+id/image_view_avatar"
                 android:layout_width="75dp"
                 android:layout_height="75dp"/>
-            android:layout_weight="2" />
         </LinearLayout>
 
         <!--Phone number-->
@@ -90,7 +89,8 @@
                 android:id="@+id/edit_text_email_id"
                 style="@style/edit_text_style_to_show_data"
                 android:layout_width="0dp"
-                android:layout_weight="8"/>
+                android:layout_weight="8"
+                android:inputType="textEmailAddress"/>
 
             <Button
                 android:id="@+id/button_send"

@@ -6,10 +6,8 @@
     <string name="name_of_application_string1">Welcome</string>
     <string name="name_of_application_string2">to</string>
     <string name="name_of_application_string3">contacts</string>
-    <string name="action_settings">Settings</string>
 
     <!-- 1st Screen | Splash Screen -->
-    <string name="enter_button">tap if you don\'t want to wait</string>
 
     <!-- 2nd Screen | Contacts List -->
     <string name="title_activity_contact_list">Contacts list</string>
@@ -67,12 +65,12 @@
     <string name="humidity">Humidity</string>
     <string name="sunset">Sunset</string>
     <string name="sunrise">Sunrise</string>
-    <string name="select_picture_string">Select picture</string>
     <string name="image_cannot_be_loaded">The selected image cannot be loaded.</string>
     <string name="cannot_crop_image">Sorry! But you can\'t crop image. No app found for this.</string>
     <string name="button_plan_meeting_text">Plan meeting</string>
     <string name="meeting_planning_title">Meeting with %1$s.</string>
     <string name="cannot_create_meeting">Cannot create meeting.\\nProbably you do not have the necessary app.</string>
+    <string name="image_view_content_description">Avatar</string>
 
 
 </resources>

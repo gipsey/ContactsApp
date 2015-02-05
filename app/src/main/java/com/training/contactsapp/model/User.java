@@ -7,11 +7,7 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
-/**
- * Created by davidd on 1/14/15.
- */
 public class User implements Serializable, Comparable<User> {
-    private static final long serialVersionUid = -7060210544600464481L;
     private long mUid;
     private String mName;
     private String mPhoneNumber;
@@ -142,4 +138,5 @@ public class User implements Serializable, Comparable<User> {
             return -1;
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.training.contactsapp.view.fragments;
+package com.training.contactsapp.presentation.fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -10,9 +10,6 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-/**
- * Created by davidd on 1/16/15.
- */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     public static final String DATE = "yyyy-mm-dd";
 
@@ -26,7 +23,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int year = 0, month = 0, dayOfMonth = 0;
+        int year, month, dayOfMonth;
 
         String date = getArguments().getString(DATE);
         if (date == null || date.isEmpty()) {

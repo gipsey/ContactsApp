@@ -1,4 +1,4 @@
-package com.training.contactsapp.view.activities;
+package com.training.contactsapp.presentation.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -21,7 +21,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.training.contactsapp.R;
-import com.training.contactsapp.business.NetworkConnectionToGetWeather;
+import com.training.contactsapp.business.GetWeatherRequest;
 import com.training.contactsapp.model.Weather;
 
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class MapAndWeatherActivity extends Activity {
 
     private TextView mWeatherStatusOrAddressTextView;
 
-    private NetworkConnectionToGetWeather mNetworkConnectionToGetWeather;
+    private GetWeatherRequest mGetWeatherRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MapAndWeatherActivity extends Activity {
         createMap(getIntent().getStringExtra(Intent.EXTRA_TEXT));
 
         // Create Weather
-        initializeStatusTextViewAndAddToMainLayout();
+        setupWeatherLayout();
         if (mLocationAddressSuggestedByGoogleMaps == null || mLocationAddressSuggestedByGoogleMaps.isEmpty()) {
             mWeatherStatusOrAddressTextView.setText(getResources().getString(R.string.no_weather_data));
             crossFade();
@@ -142,7 +142,7 @@ public class MapAndWeatherActivity extends Activity {
         }
     }
 
-    private void initializeStatusTextViewAndAddToMainLayout() {
+    private void setupWeatherLayout() {
         mWeatherLinearLayout = (LinearLayout) findViewById(R.id.weather_linear_layout);
         mWeatherLayoutProgressBar = (ProgressBar) findViewById(R.id.weather_layout_progress_bar);
         mWeatherLinearLayout.setVisibility(View.GONE);
@@ -173,8 +173,8 @@ public class MapAndWeatherActivity extends Activity {
     }
 
     private void getWeatherDataBasedOnLatLng() {
-        mNetworkConnectionToGetWeather = new NetworkConnectionToGetWeather(this);
-        mNetworkConnectionToGetWeather.getWeatherData(mLatLngSuggestedByGoogleMaps);
+        mGetWeatherRequest = new GetWeatherRequest(this);
+        mGetWeatherRequest.getWeatherData(mLatLngSuggestedByGoogleMaps);
     }
 
     public void setWeatherData(Weather weather) {
