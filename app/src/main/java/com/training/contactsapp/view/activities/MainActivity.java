@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import com.training.contactsapp.R;
 
+// review: this class is splash screen, not main activity
 public class MainActivity extends Activity {
+    //review: this handler can  be locally declared
     private Handler mStartHandler;
-
+    //review: this layout can  be locally declared
     private LinearLayout mMainLinearLayout;
 
+    // review: is not a good idea to use 1,2,3 in var names
     private TextView mNameOfApplicationTextView1;
     private TextView mNameOfApplicationTextView2;
     private TextView mNameOfApplicationTextView3;

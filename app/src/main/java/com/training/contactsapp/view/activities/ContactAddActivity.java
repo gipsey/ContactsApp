@@ -46,6 +46,7 @@ public class ContactAddActivity extends BaseActivityForDetailsEditAddActivities 
     }
 
     private void setButtonsVisibility(int visibility) {
+        // review: you don't need to cast here
         ((Button) findViewById(R.id.button_call)).setVisibility(visibility);
         ((Button) findViewById(R.id.button_send)).setVisibility(visibility);
         ((Button) findViewById(R.id.button_look)).setVisibility(visibility);

@@ -55,6 +55,7 @@ public class MapAndWeatherActivity extends Activity {
         createMap(getIntent().getStringExtra(Intent.EXTRA_TEXT));
 
         // Create Weather
+        // review: better name -> setup weather layout
         initializeStatusTextViewAndAddToMainLayout();
         if (mLocationAddressSuggestedByGoogleMaps == null || mLocationAddressSuggestedByGoogleMaps.isEmpty()) {
             mWeatherStatusOrAddressTextView.setText(getResources().getString(R.string.no_weather_data));

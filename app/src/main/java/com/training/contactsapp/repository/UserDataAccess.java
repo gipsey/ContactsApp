@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by davidd on 1/29/15.
  */
+// review: UserDataAccessObject || UserDAO
 public interface UserDataAccess {
     public List<User> getUsers();
 

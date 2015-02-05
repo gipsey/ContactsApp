@@ -14,6 +14,7 @@ import com.training.contactsapp.view.activities.MapAndWeatherActivity;
 /**
  * Created by davidd on 1/23/15.
  */
+// review: get weather request 
 public class NetworkConnectionToGetWeather implements DownloadWebPageTask.Data {
     private static final String URL_ADDRESS = "http://api.openweathermap.org/data/2.5/weather";
     private static final String URL_PARAMETER_LAT = "lat";
@@ -32,7 +33,7 @@ public class NetworkConnectionToGetWeather implements DownloadWebPageTask.Data {
 
     public void getWeatherData(LatLng latLngToBeSearched) {
         String url = null;
-
+//review: create a constant + use String.format 
         url = URL_ADDRESS + "?" +
                 URL_PARAMETER_LAT + "=" + latLngToBeSearched.latitude + "&" +
                 URL_PARAMETER_LONG + "=" + latLngToBeSearched.longitude + "&" +
@@ -46,6 +47,7 @@ public class NetworkConnectionToGetWeather implements DownloadWebPageTask.Data {
     }
 
     @Override
+    // review: onRequestCompleted
     public void onDataIsReady(String jsonData) {
         Log.i(getClass().getName() + " DATA ARRIVED ", jsonData);
         parseJson(jsonData);

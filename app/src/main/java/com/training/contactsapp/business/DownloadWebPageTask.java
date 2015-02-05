@@ -76,6 +76,7 @@ public class DownloadWebPageTask extends AsyncTask<String, Void, String> {
         data.onDataIsReady(s);
     }
 
+    // review: rename
     public interface Data {
         public void onDataIsReady(String data);
     }

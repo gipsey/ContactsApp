@@ -93,6 +93,7 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
         }
     }
 
+    // review: method not used
     protected Bitmap pictureSelected(Intent data) {
         Uri selectedImage = data.getData();
         String[] filePathColumn = {MediaStore.Images.Media.DATA};

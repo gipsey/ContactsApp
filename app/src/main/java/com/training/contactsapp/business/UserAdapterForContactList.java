@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by davidd on 1/14/15.
  */
+// review: rename UserContactListAdapter + View holder
 public class UserAdapterForContactList extends ArrayAdapter<User> {
 
     public UserAdapterForContactList(Context context, List<User> users) {

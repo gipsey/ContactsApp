@@ -26,6 +26,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     public final static String ADD_STATUS = "ADD_STATUS";
 
     private UserDataAccess mUserDataAccess;
+    //review: this view can  be locally declared 
     private SearchView mSearchView;
     private ListView mMainListView;
     private List<User> mUsers;
@@ -58,6 +59,7 @@ public class ContactListActivity extends ActionBarActivity implements SearchView
     }
 
     private void createListView() {
+        // review: this instruction should not be done here in  create method
         mUsers = mUserDataAccess.getUsersUidNamePhoneNumberAvatar();
 
         UserAdapterForContactList userAdapterForContactList = new UserAdapterForContactList(this, mUsers);
