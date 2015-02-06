@@ -35,7 +35,7 @@ public class ContactListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        mUserDAO = AbstractDAOFactory.getInstance().getUserDataAccess();
+        mUserDAO = AbstractDAOFactory.getInstance().getUserDAO();
         mOriginalUsers = mUserDAO.getUsersUidNamePhoneNumberAvatar();
 
         Intent intent = getIntent();

@@ -11,6 +11,11 @@ import java.io.ByteArrayOutputStream;
 
 public class MockDataManager {
 
+    /**
+     * Inserts mock data using the {@code UserDAO} parameter.
+     *
+     * @param userDAO It makes possible to insert mock data.
+     */
     public static void insertDefaultUsers(UserDAO userDAO) {
         long re = userDAO.deleteUsers();
 
@@ -38,6 +43,12 @@ public class MockDataManager {
         userDAO.insertUser(new User(-1, "", "", "", "", "", "", avatarUnknown));
     }
 
+    /**
+     * Converts {@code Bitmap} object to {@code byte} array.
+     *
+     * @param bitmapAvatar The {@code Bitmap} object to be converted.
+     * @return {@code byte} array that contains the given {@code Bitmap} object.
+     */
     private static byte[] getByteArrayFromBitmap(Bitmap bitmapAvatar) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmapAvatar.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);

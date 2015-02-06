@@ -9,7 +9,7 @@ import com.training.contactsapp.access.UserDAO;
 public class SqLiteDAOFactory extends AbstractDAOFactory {
 
     @Override
-    public UserDAO getUserDataAccess() {
+    public UserDAO getUserDAO() {
         return SqLiteUserDAO.getInstance();
     }
 

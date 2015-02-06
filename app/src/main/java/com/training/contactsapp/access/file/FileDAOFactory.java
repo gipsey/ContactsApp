@@ -6,7 +6,7 @@ import com.training.contactsapp.access.UserDAO;
 public class FileDAOFactory extends AbstractDAOFactory {
 
     @Override
-    public UserDAO getUserDataAccess() {
+    public UserDAO getUserDAO() {
         return FileUserDAO.getInstance();
     }
 

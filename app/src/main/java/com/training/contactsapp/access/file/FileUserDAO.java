@@ -35,6 +35,11 @@ public class FileUserDAO implements UserDAO {
     private static File sDirectory;
     private static File sFile;
 
+    /**
+     * Constructor of the class adjusted to fit the Singleton pattern. Checks
+     * whether the external storage is writable or not. If the file used
+     * to store data is empty inserts some {@code User} instances.
+     */
     private FileUserDAO() {
         if (isExternalStorageWritableAndWritable()) {
             createDirectoryAndFileObjects();
@@ -48,6 +53,11 @@ public class FileUserDAO implements UserDAO {
         }
     }
 
+    /**
+     * Creates the instance of the class.
+     *
+     * @return The existing or the created instance of the class.
+     */
     synchronized public static UserDAO getInstance() {
         if (sInstance == null) {
             sInstance = new FileUserDAO();
@@ -55,11 +65,21 @@ public class FileUserDAO implements UserDAO {
         return sInstance;
     }
 
+    /**
+     * Checks whether the external storage is writable.
+     *
+     * @return {@code true} if external storage is writable, {@code false} otherwise.
+     */
     public boolean isExternalStorageWritableAndWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
 
+    /**
+     * Checks whether directory specified by {@code sDirectory} exists,
+     * if not exists creates the specified directory. Creates the file
+     * specified by {@code sFile}.
+     */
     private void createDirectoryAndFileObjects() {
         sDirectory = new File(Environment.getExternalStoragePublicDirectory(ContactsApplication.getPackage()), DIR_NAME);
         if (!sDirectory.exists()) {
@@ -74,17 +94,12 @@ public class FileUserDAO implements UserDAO {
         sFile = new File(sDirectory, FILE_NAME);
     }
 
-    private boolean isFileEmpty(File file) {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            return bufferedReader.readLine() == null;
-        } catch (IOException e) {
-            Log.e(getClass().getName(), "Cannot decide that " + file.getName() + " is empty or not");
-            e.printStackTrace();
-            return true;
-        }
-    }
-
+    /**
+     * Saves the given {@code Bitmap} in the storage.
+     *
+     * @param bitmapToSave The {@code Bitmap} objects to be saved.
+     * @return The absolute path of the saved {@code Bitmap} objects, {@code null} otherwise.
+     */
     private String saveImageInStorage(Bitmap bitmapToSave) {
         String fileName = IMAGE_FILE_PREFIX + System.currentTimeMillis() + IMAGE_FILE_EXTENSION;
         File file = new File(sDirectory, fileName);
@@ -108,6 +123,15 @@ public class FileUserDAO implements UserDAO {
         return file.getAbsolutePath();
     }
 
+    /**
+     * Reads in the entire file, specified by {@code sFile} and returns
+     * {@code User} instances in a {@code List}.
+     *
+     * @param all Tells that the method have to read and return all column
+     *            of each row or call just the {@code setUid}, {@code setName},
+     *            {@code setPhoneNumber} and {@code setAvatar} methods.
+     * @return The {@code List} containing all the {@code User} instances read from {@code sFile}
+     */
     private List<User> getUsers(boolean all) {
         List<User> users = new ArrayList<User>();
 
@@ -153,6 +177,12 @@ public class FileUserDAO implements UserDAO {
         return users;
     }
 
+    /**
+     * Reads file and returns the {@code User} instance that has the {@code uid} given as parameter.
+     *
+     * @param uid The uid that has to match.
+     * @return A new {@code User} instance that has the {@code uid} given as parameter.
+     */
     @Override
     public User getUserByUid(long uid) { // I want to use this instead of reading the whole file, because if the uid is found the method returns the specified user
         User user = null;
@@ -197,11 +227,21 @@ public class FileUserDAO implements UserDAO {
         return user;
     }
 
+    /**
+     * Returns all {@code User} instances all columns.
+     *
+     * @return The {@code List} containing {@code User} instances.
+     */
     @Override
     public List<User> getUsers() {
         return getUsers(true);
     }
 
+    /**
+     * Returns all {@code User} instances, but not all the columns, sorted by {@code Name}.
+     *
+     * @return The {@code List} containing {@code User} instances.
+     */
     @Override
     public List<User> getUsersUidNamePhoneNumberAvatar() {
         List<User> users = getUsers(false);
@@ -209,6 +249,12 @@ public class FileUserDAO implements UserDAO {
         return users;
     }
 
+    /**
+     * Inserts the given user into the file, specified by {@code sFile}.
+     *
+     * @param user The {@code User} instance to be inserted.
+     * @return Returns {@code SUCCESS_RETURN_CODE} on success, {@code ERROR_RETURN_CODE} otherwise.
+     */
     @Override
     public long insertUser(User user) {
         PrintWriter printWriter = null;
@@ -244,6 +290,15 @@ public class FileUserDAO implements UserDAO {
         return SUCCESS_RETURN_CODE;
     }
 
+    /**
+     * Updates the given {@code User} instance in the file, specified by {@code sFile}. First of
+     * all retrieves all the {@code User} instances from file, then deletes it. After these inserts
+     * the retrieved {@code User} instances from {@code List} into file, and of course the specified
+     * {@code User} instance will be inserted instead of the old one.
+     *
+     * @param user The new {@code User} instance to be inserted instead of the old one.
+     * @return Returns {@code SUCCESS_RETURN_CODE} on success, {@code ERROR_RETURN_CODE} otherwise.
+     */
     @Override
     public long updateUser(User user) {
         List<User> users = getUsers(true);
@@ -268,6 +323,11 @@ public class FileUserDAO implements UserDAO {
         return SUCCESS_RETURN_CODE;
     }
 
+    /**
+     * Delete the file what contains all the information about users. It deletes the entire file.
+     *
+     * @return Returns {@code SUCCESS_RETURN_CODE} on success, {@code ERROR_RETURN_CODE} otherwise.
+     */
     @Override
     public long deleteUsers() {
         boolean allFilesDeletedSuccessfully = true;
@@ -283,6 +343,13 @@ public class FileUserDAO implements UserDAO {
         }
     }
 
+    /**
+     * Deletes one {@code User} instance from the file. The {@code User} instance is identified by
+     * the {@code uid} parameter.
+     *
+     * @param uid Identifier for the {@code User} instance that has to be deleted.
+     * @return Returns {@code SUCCESS_RETURN_CODE} on success, {@code ERROR_RETURN_CODE} otherwise.
+     */
     @Override
     public long deleteUserByUid(long uid) {
         List<User> users = getUsers(true);

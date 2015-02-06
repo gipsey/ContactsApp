@@ -9,6 +9,6 @@ public abstract class AbstractDAOFactory {
 //        return new FileDataAccessFactory();
     }
 
-    public abstract UserDAO getUserDataAccess();
+    public abstract UserDAO getUserDAO();
 
 }

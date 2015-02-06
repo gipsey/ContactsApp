@@ -69,7 +69,7 @@ public abstract class BaseActivityForDetailsEditAddActivities extends ActionBarA
 
         ButterKnife.inject(this);
 
-        mUserDAO = AbstractDAOFactory.getInstance().getUserDataAccess();
+        mUserDAO = AbstractDAOFactory.getInstance().getUserDAO();
     }
 
     @Override

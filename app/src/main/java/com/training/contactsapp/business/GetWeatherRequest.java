@@ -17,12 +17,23 @@ public class GetWeatherRequest implements DownloadWebPageTask.ResponseListener {
     private MapAndWeatherActivity activity;
     private ConnectivityManager mConnectivityManager;
 
+    /**
+     * Constructor that gets the {@code Activity} from where it was invoked.
+     *
+     * @param activity The {@code Activity} from where it was invoked this method.
+     */
     public GetWeatherRequest(MapAndWeatherActivity activity) {
         this.activity = activity;
         Context sContext = ContactsApplication.getContext();
         mConnectivityManager = (ConnectivityManager) sContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
+    /**
+     * Sends a request for the created {@code DownloadWebPageTask} instance.
+     *
+     * @param latLngToBeSearched Information about the location that is needed for the
+     *                           {@code DownloadWebPageTask}.
+     */
     public void getWeatherData(LatLng latLngToBeSearched) {
         NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
 
@@ -32,12 +43,23 @@ public class GetWeatherRequest implements DownloadWebPageTask.ResponseListener {
         }
     }
 
+    /**
+     * When the response is arrived, this method invoked and parses the data.
+     *
+     * @param response The response {@code String} that has format {@code JSON} and has o be parsed.
+     */
     @Override
     public void onResponseIsReady(String response) {
         Log.i(getClass().getName(), "Weather data arrived. The response is: " + response);
         parseJson(response);
     }
 
+    /**
+     * Parses the given data as {@code String} (but assumes that has JSON format), and invokes one
+     * of the {@code activity}'s method to respond.
+     *
+     * @param jsonData The {@code String} object that has to be parsed.
+     */
     private void parseJson(String jsonData) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
