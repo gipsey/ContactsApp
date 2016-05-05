@@ -60,7 +60,7 @@ public class MapAndWeatherActivity extends Activity {
             mWeatherStatusOrAddressTextView.setText(getResources().getString(R.string.no_weather_data));
             crossFade();
         } else {
-            getWeatherDataBasedOnLatLng();
+//            getWeatherDataBasedOnLatLng(); // TODO: uncomment this to get weather
         }
 
     }

@@ -31,7 +31,7 @@
             android:value="@integer/google_play_services_version"/>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBxSLhn8qKZSz8ibAVJQZU_gqLIS7s1aX0"/>
+            android:value="AIzaSyBF5c7meEMCcuDbpLKmoEUgNwBT6T8k4zo"/>
 
         <activity
             android:name=".presentation.activity.SplashActivity"
